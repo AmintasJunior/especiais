@@ -4,15 +4,15 @@ async function fetchData(url) {
     const response = await fetch(url);
     const data = await response.json();
     dadosCompletos = data; // Armazena os dados recebidos para filtragem futura
-    displayData(data); // Exibe todos os dados inicialmente
+    displayData(dadosCompletos); // Exibe todos os dados inicialmente, já ordenados
 }
 
 function displayData(data) {
-    // Ordena os dados por nome_beneficiario_plano_acao em ordem alfabética, considerando a remoção de acentos e espaços extras
+    // Ordena os dados por nome_beneficiario_plano_acao em ordem alfabética
     let dadosOrdenados = [...data].sort((a, b) => {
-        let nomeA = a.nome_beneficiario_plano_acao.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
-        let nomeB = b.nome_beneficiario_plano_acao.normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
-        return nomeA < nomeB ? -1 : nomeA > nomeB ? 1 : 0;
+        let nomeA = a.nome_beneficiario_plano_acao.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        let nomeB = b.nome_beneficiario_plano_acao.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+        return nomeA.localeCompare(nomeB);
     });
 
     const tableBody = document.querySelector('#dadosTabela tbody');
@@ -24,19 +24,19 @@ function displayData(data) {
     dadosOrdenados.forEach(item => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${item.nome_beneficiario_plano_acao.replace(/MUNICIPIO DE |MUNICÍPIO DE /gi, "").trim()}</td>
-            <td>${item.ano_plano_acao}</td>        
+            <td>${item.nome_beneficiario_plano_acao.replace(/MUNICIPIO DE |MUNICÍPIO DE /gi, "")}</td>
+            <td>${item.ano_plano_acao}</td>
             <td>${item.nome_parlamentar_emenda_plano_acao}</td>
             <td>${item.codigo_plano_acao}</td>
             <td>${item.situacao_plano_acao}</td>
-            <td>${(item.valor_investimento_plano_acao).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</td>
-            <td>${(item.valor_custeio_plano_acao).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</td>
+            <td>${item.valor_investimento_plano_acao.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</td>
+            <td>${item.valor_custeio_plano_acao.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</td>
         `;
         tableBody.appendChild(row);
 
         // Acumula os totais
-        totalInvestimento += Number(item.valor_investimento_plano_acao);
-        totalCusteio += Number(item.valor_custeio_plano_acao);
+        totalInvestimento += item.valor_investimento_plano_acao;
+        totalCusteio += item.valor_custeio_plano_acao;
     });
 
     // Atualiza os elementos HTML com os totais
@@ -45,9 +45,9 @@ function displayData(data) {
 }
 
 function filtrarDados(filtro) {
-    // Filtra os dados com base no input do usuário, removendo espaços extras para comparação
-    const dadosFiltrados = dadosCompletos.filter(item => item.nome_beneficiario_plano_acao.trim().toUpperCase().includes(filtro.trim().toUpperCase()));
-    displayData(dadosFiltrados);
+    // Filtra os dados com base no input do usuário
+    const dadosFiltrados = dadosCompletos.filter(item => item.nome_beneficiario_plano_acao.toUpperCase().includes(filtro.toUpperCase()));
+    displayData(dadosFiltrados); // Exibe os dados filtrados, que serão reordenados
 }
 
 document.getElementById('filtro_beneficiario').addEventListener('input', () => {
