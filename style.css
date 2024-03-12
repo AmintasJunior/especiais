@@ -19,7 +19,7 @@ body {
 
 #cabeçalho {
   background-color: rgb(4, 95, 143);
-  height: 60px;
+  height: 70px;
   display: flex;
   justify-content: baseline;
   align-items: center;
@@ -27,15 +27,15 @@ body {
 
 #logo-ac {
   width: 100%;
-  max-width: 55px;
+  max-width: 50px;
   margin-left: 40px;
 }
 
 #point-cabeçalho {
   color: white;
   font-weight: 600;
-  font-size: 22px;
-  margin-left: 20px;
+  font-size: 20px;
+  margin-left: 18px;
 }
 
 #txt-cabeçalho {
@@ -43,20 +43,19 @@ body {
   font-weight: 600;
   display: flex;
   align-items: center;
-  font-size: 22px;
-  margin-left: 6px;
+  font-size: 20px;
+  margin-left: 5px;
   text-decoration: currentcolor;
 }
 
 #caixa-tabela {
   width: 1268px;
-  height: 450px;
+  height: 440px;
   margin: 0 auto;
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  padding-bottom: 14px;
-  margin-top: 50px;
-  overflow: scroll;
+  padding: 0 15px;
+
 }
 
 #linha-grossa-cabeçalho {
@@ -64,27 +63,43 @@ body {
   height: 12px;
   background-color: rgb(4, 95, 143);
   border-radius: 2px 2px 0 0;
+  width: 1268px;
+  margin-top: 30px;
+  
+ 
+  
 }
 
 #linha-fina-cabeçalho {
   width: 100%;
   height: 3px;
   background: #98daf3;
-  margin-bottom: 11px;
+  margin-bottom: -5px;
+  width: 1268px;
+  
 }
 
+#container-tabela{
+  max-height: 415px;
+  overflow: auto;
+  margin-top: 20px;
+}
+
+
 #dadosTabela {
-  margin: 20px 12px;
-  width: 98%;
+  width: 100%;
   border-collapse: collapse;
+  font-size: 13px;
 }
 
 #dadosTabela thead th {
   position: sticky;
   top: 0;
+  z-index: 1; 
   background-color: rgb(4, 95, 143);
   color: white;
-  z-index: 1; /* Garante que o cabeçalho fique sobreposto a outros elementos */
+  
+ 
 }
 
 #dadosTabela th {
@@ -95,7 +110,7 @@ body {
 #dadosTabela td {
   padding: 15px;
   text-align: center;
-  height: 70px;
+  height: 40px;
 }
 
 #dadosTabela thead {
