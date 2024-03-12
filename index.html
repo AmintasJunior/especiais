@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dados do Plano de Ação</title>
+</head>
+<body>
+    <div>
+        <h1>Transferências Especiais</h1>
+    </div>
+    <div id="filtros">
+        <div>Beneficiário:</div>
+        <textarea id="filtro_beneficiario" cols="30" rows="1" placeholder="Filtrar por nome do beneficiário..."></textarea>
+
+    </div>
+    <table id="dadosTabela">
+        <thead>
+            <tr>
+                <th>Beneficiário</th>
+                <th>Ano</th>
+                <th>Parlamentar</th>
+                <th>Plano de Ação</th>
+                <th>Situação</th>
+                <th>VL. Investimento</th>
+                <th>VL. Custeio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Os dados serão inseridos aqui -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5">Total</th>
+                <th id="totalInvestimento">R$ 0,00</th>
+                <th id="totalCusteio">R$ 0,00</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
