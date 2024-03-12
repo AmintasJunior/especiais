@@ -15,6 +15,7 @@
 <body>
     <div id="cabeçalho">
         <img id="logo-ac" src="./img/Perfil-Branco.png" alt="">
+        <span id="point-cabeçalho">•</span>
         <div id="txt-cabeçalho">Transferências Especiais</div>
 
     </div>
@@ -24,16 +25,20 @@
         <textarea id="filtro_beneficiario" cols="30" rows="1" placeholder="Filtrar por nome do beneficiário..."></textarea>
 
     </div>
+
+<div id="caixa-tabela">
+    <div id="linha-grossa-cabeçalho"></div>
+    <div id="linha-fina-cabeçalho"></div>
     <table id="dadosTabela">
         <thead>
-            <tr>
-                <th>Beneficiário</th>
-                <th>Ano</th>
-                <th>Parlamentar</th>
-                <th>Plano de Ação</th>
-                <th>Situação</th>
-                <th>VL. Investimento</th>
-                <th>VL. Custeio</th>
+            <tr >
+                <th >Beneficiário</th>
+                <th >Ano</th>
+                <th >Parlamentar</th>
+                <th >Plano de Ação</th>
+                <th >Situação</th>
+                <th >VL. Investimento</th>
+                <th >VL. Custeio</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +52,7 @@
             </tr>
         </tfoot>
     </table>
+</div>
 
     <script src="script.js"></script>
 </div>
