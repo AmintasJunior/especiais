@@ -33,14 +33,14 @@ body {
 
 #point-cabeçalho {
   color: white;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 20px;
   margin-left: 18px;
 }
 
 #txt-cabeçalho {
   color: white;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -55,7 +55,6 @@ body {
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 0 15px;
-
 }
 
 #linha-grossa-cabeçalho {
@@ -65,9 +64,6 @@ body {
   border-radius: 2px 2px 0 0;
   width: 1268px;
   margin-top: 10px;
-  
- 
-  
 }
 
 #linha-fina-cabeçalho {
@@ -76,15 +72,13 @@ body {
   background: #98daf3;
   margin-bottom: -5px;
   width: 1268px;
-  
 }
 
-#container-tabela{
+#container-tabela {
   max-height: 415px;
   overflow: auto;
   margin-top: 20px;
 }
-
 
 #dadosTabela {
   width: 100%;
@@ -95,20 +89,19 @@ body {
 #dadosTabela thead th {
   position: sticky;
   top: 0;
-  z-index: 1; 
+  z-index: 1;
   background-color: rgb(4, 95, 143);
   color: white;
-  
- 
+  font-weight: 500;
 }
 
 #dadosTabela th {
-  padding: 15px;
+  padding: 8px 15px;
   text-align: center;
 }
 
 #dadosTabela td {
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   height: 40px;
 }
@@ -118,10 +111,10 @@ body {
   color: white;
 }
 
-#dadosTabela th {
+#dadosTabela thead th {
   background-color: rgb(4, 95, 143);
   color: white;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 #dadosTabela tbody tr:nth-child(even) {
@@ -133,16 +126,14 @@ body {
 }
 
 #dadosTabela tfoot th {
-  background-color: rgb(4, 95, 143);
-  color: white;
-  font-weight: bold;
-  
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  background-color: white; /* Fundo branco */
+  border-top: 3px solid rgb(4, 95, 143); /* Borda superior */
 }
 
-#filtros{
+#filtros {
   display: flex;
-  justify-content: center;
-  justify-items: center;
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -152,10 +143,44 @@ body {
   font-weight: 600;
   font-size: 16px;
   margin-right: 8px;
- 
 }
 
-#filtro_beneficiario{
+#filtro_beneficiario {
+  padding-left: 8px;
+
+  border: 0.08px solid rgb(4, 95, 143, 0.5);
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 13px;
+  resize: none;
+}
+
+#txt-filtro-ano {
+  color: rgb(4, 95, 143);
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 8px;
+  margin-left: 10px;
+}
+
+#filtro_ano {
+  padding-left: 8px;
+  border: 0.08px solid rgb(4, 95, 143, 0.5);
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 13px;
+  resize: none;
+}
+
+#txt-filtro-Parlamentar {
+  color: rgb(4, 95, 143);
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 8px;
+  margin-left: 10px;
+}
+
+#filtro_Parlamentar {
   padding-left: 8px;
 
   border: 0.08px solid rgb(4, 95, 143, 0.5);
