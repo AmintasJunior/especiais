@@ -64,7 +64,7 @@ body {
   background-color: rgb(4, 95, 143);
   border-radius: 2px 2px 0 0;
   width: 1268px;
-  margin-top: 30px;
+  margin-top: 10px;
   
  
   
@@ -138,3 +138,29 @@ body {
   font-weight: bold;
   
 }
+
+#filtros{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#txt-filtro-benificiario {
+  color: rgb(4, 95, 143);
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 8px;
+ 
+}
+
+#filtro_beneficiario{
+  padding-left: 8px;
+
+  border: 0.08px solid rgb(4, 95, 143, 0.5);
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 13px;
+  resize: none;
+} 
