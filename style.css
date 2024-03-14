@@ -50,11 +50,10 @@ body {
 
 #caixa-tabela {
   width: 1268px;
-  height: 440px;
+  height: 460px;
   margin: 0 auto;
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  padding: 0 15px;
 }
 
 #linha-grossa-cabeçalho {
@@ -62,7 +61,6 @@ body {
   height: 12px;
   background-color: rgb(4, 95, 143);
   border-radius: 2px 2px 0 0;
-  width: 1268px;
   margin-top: 10px;
 }
 
@@ -71,11 +69,15 @@ body {
   height: 3px;
   background: #98daf3;
   margin-bottom: -5px;
-  width: 1268px;
+}
+
+#padding-container-tabela {
+  padding: 0 15px;
 }
 
 #container-tabela {
-  max-height: 415px;
+  width: 100%;
+  max-height: 390px;
   overflow: auto;
   margin-top: 20px;
 }
@@ -125,67 +127,133 @@ body {
   background-color: #ddd;
 }
 
-#dadosTabela tfoot th {
+#rodape {
+  width: 98%;
+  font-size: 15px;
   color: rgb(0, 0, 0);
   font-weight: 600;
   background-color: white; /* Fundo branco */
-  border-top: 3px solid rgb(4, 95, 143); /* Borda superior */
+  border-top: 4px solid rgb(4, 95, 143);
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  height: 36px;
+  display: flex;
+}
+
+#dadosTabela th:nth-child(1) {
+  width: 20%;
+}
+#dadosTabela th:nth-child(2) {
+  width: 5%;
+}
+#dadosTabela th:nth-child(3) {
+  width: 15%;
+}
+
+#dadosTabela th:nth-child(4) {
+  width: 14%;
+}
+
+#dadosTabela th:nth-child(5) {
+  width: 10%;
+}
+
+#dadosTabela th:nth-child(6) {
+  width: 18%;
+}
+
+#dadosTabela th:nth-child(7) {
+  width: 18%;
+}
+
+#rodape p:nth-child(1) {
+  width: 66%;
+  text-align: right;
+  margin-top: 7px;
+}
+
+#rodape p:nth-child(2) {
+  width: 17%;
+  text-align: center;
+  margin-top: 7px;
+}
+
+#rodape p:nth-child(3) {
+  width: 17%;
+  text-align: center;
+  margin-top: 7px;
 }
 
 #filtros {
   display: flex;
-  margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
   margin-bottom: 15px;
 }
 
 #txt-filtro-benificiario {
   color: rgb(4, 95, 143);
   font-weight: 600;
-  font-size: 16px;
-  margin-right: 8px;
+  font-size: 15px;
 }
 
 #filtro_beneficiario {
-  padding-left: 8px;
-
   border: 0.08px solid rgb(4, 95, 143, 0.5);
   border-radius: 4px;
-  background-color: #f8f8f8;
+  background-color: #fafafa;
   font-size: 13px;
   resize: none;
+  height: 25px;
+  width: 300px;
+  padding-left: 5px;
 }
 
 #txt-filtro-ano {
   color: rgb(4, 95, 143);
   font-weight: 600;
-  font-size: 16px;
-  margin-right: 8px;
-  margin-left: 10px;
+  font-size: 15px;
+  margin-left: 50px;
 }
 
 #filtro_ano {
-  padding-left: 8px;
   border: 0.08px solid rgb(4, 95, 143, 0.5);
   border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 13px;
+  background-color: #fafafa;
+  font-size: 12px;
   resize: none;
+  height: 25px;
 }
 
 #txt-filtro-Parlamentar {
   color: rgb(4, 95, 143);
   font-weight: 600;
-  font-size: 16px;
-  margin-right: 8px;
-  margin-left: 10px;
+  font-size: 15px;
+  margin-left: 50px;
 }
 
-#filtro_Parlamentar {
-  padding-left: 8px;
-
+#filtro_parlamentar {
   border: 0.08px solid rgb(4, 95, 143, 0.5);
   border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 13px;
+  background-color: #fafafa;
+  font-size: 12px;
   resize: none;
+  height: 25px;
+  width: 200px;
 }
+
+form {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 50px;
+  gap: 10px;
+}
+
+form label {
+  color: rgb(4, 95, 143);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+

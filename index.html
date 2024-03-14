@@ -18,62 +18,61 @@
       <span id="point-cabeçalho">•</span>
       <div id="txt-cabeçalho">Transferências Especiais</div>
     </div>
-    <div id="container">
+    <div id="container"></div>
+
       <div id="filtros">
-        <div id="txt-filtro-benificiario">Beneficiário:</div>
-        <textarea
-          id="filtro_beneficiario"
-          cols="25"
-          rows="1"
-          placeholder="Filtrar por beneficiário..."
-        ></textarea>
+        <div>
+            <label id="txt-filtro-benificiario" for="filtro_beneficiario">Beneficiário:</label>
+<input type="text" id="filtro_beneficiario" placeholder="Digite o nome do beneficiário...">
 
-        <div id="txt-filtro-ano">Ano:</div>
-        <textarea
-          id="filtro_ano"
-          cols="15"
-          rows="1"
-          placeholder="Filtrar por Ano..."
-        ></textarea>
+        </div>
+        <div>
+            <label id="txt-filtro-ano" for="filtro_ano">Ano:</label>
+            <select id="filtro_ano"></select>
+        </div>
+        <div>
+            <label id="txt-filtro-Parlamentar" for="filtro_parlamentar">Parlamentar:</label>
+            <select id="filtro_parlamentar"></select>
+        </div>
+        <form>
+          <label for="Clientes-AC">
+              <input type="checkbox" id="Clientes-AC" name="preferencia" value="Clientes AC"> Clientes AC
+          </label><br>
+          <label for="Todos-Munic">
+              <input type="checkbox" id="Todos-Munic-" name="preferencia" value="Todos-Munic"> Todos Munic.
+          </label><br>
 
-        <!-- <div id="txt-filtro-Parlamentar">Parlamentar:</div>
-        <textarea
-          id="filtro_Parlamentar"
-          cols="20"
-          rows="1"
-          placeholder="Filtrar por Parlamentar..."
-        ></textarea>
-      </div> -->
-      </div>
-
-      <div id="linha-grossa-cabeçalho"></div>
-      <div id="linha-fina-cabeçalho"></div>
-
+      </form>
+    </div>
+      
       <div id="caixa-tabela">
-        <div id="container-tabela">
-          <table id="dadosTabela">
-            <thead>
-              <tr>
-                <th>Beneficiário</th>
-                <th>Ano</th>
-                <th>Parlamentar</th>
-                <th>Plano de Ação</th>
-                <th>Situação</th>
-                <th>VL. Investimento</th>
-                <th>VL. Custeio</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Os dados serão inseridos aqui -->
-            </tbody>
-            <tfoot id="rodape-tabela">
-              <tr>
-                <th colspan="5">Total</th>
-                <th id="totalInvestimento">R$ 0,00</th>
-                <th id="totalCusteio">R$ 0,00</th>
-              </tr>
-            </tfoot>
-          </table>
+        <div id="linha-grossa-cabeçalho"></div>
+        <div id="linha-fina-cabeçalho"></div>
+
+        <div id="padding-container-tabela">
+          <div id="container-tabela">
+            <table id="dadosTabela">
+              <thead>
+                <tr>
+                  <th>Beneficiário</th>
+                  <th>Ano</th>
+                  <th>Parlamentar</th>
+                  <th>Plano de Ação</th>
+                  <th>Situação</th>
+                  <th>VL. Investimento</th>
+                  <th>VL. Custeio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Os dados serão inseridos aqui -->
+              </tbody>
+            </table>
+          </div>
+          <div id="rodape">
+            <p>Total</p>
+            <p id="totalInvestimento">R$ 0,00</p>
+            <p id="totalCusteio">R$ 0,00</p>
+          </div>
         </div>
       </div>
 

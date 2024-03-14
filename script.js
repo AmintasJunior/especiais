@@ -4,11 +4,13 @@ async function fetchData(url) {
   const response = await fetch(url)
   const data = await response.json()
   dadosCompletos = data // Armazena os dados recebidos para filtragem futura
-  displayData(dadosCompletos) // Exibe todos os dados inicialmente, já ordenados
+  preencherAnosDisponiveis()
+  preencherParlamentaresDisponiveis()
+  preencherBeneficiariosDisponiveis() // Corrigido o nome da função
+  filtrarDados() // Exibe todos os dados inicialmente, já ordenados
 }
 
 function limparNome(nome) {
-  // Remove espaços extras e caracteres especiais
   return nome
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -16,13 +18,87 @@ function limparNome(nome) {
     .trim()
 }
 
-function displayData(data) {
-  // Ordena os dados por nome_beneficiario_plano_acao em ordem alfabética, após limpeza
-  let dadosOrdenados = [...data].sort((a, b) => {
-    let nomeA = limparNome(a.nome_beneficiario_plano_acao).toUpperCase()
-    let nomeB = limparNome(b.nome_beneficiario_plano_acao).toUpperCase()
-    return nomeA.localeCompare(nomeB)
+function preencherBeneficiariosDisponiveis() {
+  // Corrigido o nome da função
+  const beneficiarios = Array.from(
+    new Set(dadosCompletos.map((item) => item.nome_beneficiario_plano_acao))
+  ).sort()
+  const selectBeneficiario = document.getElementById("filtro_beneficiario") // Corrigido o nome da variável
+  selectBeneficiario.innerHTML =
+    "<option value=''>Todos os Beneficiários</option>" // Corrigido o nome da variável
+  beneficiarios.forEach((beneficiario) => {
+    const option = document.createElement("option")
+    option.value = beneficiario
+    option.textContent = beneficiario
+    selectBeneficiario.appendChild(option)
   })
+}
+
+function preencherAnosDisponiveis() {
+  const anos = Array.from(
+    new Set(dadosCompletos.map((item) => item.ano_plano_acao))
+  ).sort()
+  const selectAno = document.getElementById("filtro_ano")
+  selectAno.innerHTML = "<option value=''>Todos os anos</option>"
+  anos.forEach((ano) => {
+    const option = document.createElement("option")
+    option.value = ano
+    option.textContent = ano
+    selectAno.appendChild(option)
+  })
+}
+
+function preencherParlamentaresDisponiveis() {
+  const parlamentares = Array.from(
+    new Set(
+      dadosCompletos.map((item) => item.nome_parlamentar_emenda_plano_acao)
+    )
+  ).sort()
+  const selectParlamentar = document.getElementById("filtro_parlamentar")
+  selectParlamentar.innerHTML =
+    "<option value=''>Todos os parlamentares</option>"
+  parlamentares.forEach((parlamentar) => {
+    const option = document.createElement("option")
+    option.value = parlamentar
+    option.textContent = parlamentar
+    selectParlamentar.appendChild(option)
+  })
+}
+
+function filtrarDados() {
+  const filtroNome = document
+    .getElementById("filtro_beneficiario")
+    .value.toLowerCase()
+  const filtroAno = document.getElementById("filtro_ano").value
+  const filtroParlamentar = document
+    .getElementById("filtro_parlamentar")
+    .value.toLowerCase()
+
+  const dadosFiltrados = dadosCompletos.filter((item) => {
+    const nomeMatch =
+      !filtroNome ||
+      limparNome(item.nome_beneficiario_plano_acao)
+        .toLowerCase()
+        .includes(filtroNome)
+    const anoMatch = !filtroAno || item.ano_plano_acao.toString() === filtroAno
+    const parlamentarMatch =
+      !filtroParlamentar ||
+      item.nome_parlamentar_emenda_plano_acao
+        .toLowerCase()
+        .includes(filtroParlamentar)
+    return nomeMatch && anoMatch && parlamentarMatch
+  })
+
+  displayData(dadosFiltrados)
+}
+
+function displayData(data) {
+  // Ordena os dados por nome do beneficiário de forma alfabética antes da exibição
+  let dadosOrdenados = [...data].sort((a, b) =>
+    limparNome(a.nome_beneficiario_plano_acao).localeCompare(
+      limparNome(b.nome_beneficiario_plano_acao)
+    )
+  )
 
   const tableBody = document.querySelector("#dadosTabela tbody")
   tableBody.innerHTML = "" // Limpa a tabela antes de adicionar novos dados
@@ -49,12 +125,11 @@ function displayData(data) {
         `
     tableBody.appendChild(row)
 
-    // Acumula os totais
     totalInvestimento += item.valor_investimento_plano_acao
     totalCusteio += item.valor_custeio_plano_acao
   })
 
-  // Atualiza os elementos HTML com os totais
+  // Atualiza os totais no HTML
   document.getElementById("totalInvestimento").textContent =
     totalInvestimento.toLocaleString("pt-BR", {
       style: "currency",
@@ -64,22 +139,19 @@ function displayData(data) {
     totalCusteio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
 
-function filtrarDados(filtro) {
-  // Filtra os dados com base no input do usuário, usando nomes limpos para comparação
-  const dadosFiltrados = dadosCompletos.filter((item) =>
-    limparNome(item.nome_beneficiario_plano_acao)
-      .toUpperCase()
-      .includes(limparNome(filtro).toUpperCase())
-  )
-  displayData(dadosFiltrados) // Exibe os dados filtrados, que serão reordenados
-}
+document
+  .getElementById("filtro_beneficiario")
+  .addEventListener("input", filtrarDados)
+document.getElementById("filtro_ano").addEventListener("change", filtrarDados)
+document
+  .getElementById("filtro_parlamentar")
+  .addEventListener("change", filtrarDados)
 
-document.getElementById("filtro_beneficiario").addEventListener("input", () => {
-  const filtro = document.getElementById("filtro_beneficiario").value
-  filtrarDados(filtro) // Filtra os dados conforme o usuário digita
-})
+
 
 // Inicializa a busca e exibição de dados
-const uf = "SE" // Exemplo de filtro para UF
-const url = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
-fetchData(url)
+document.addEventListener("DOMContentLoaded", (event) => {
+  const uf = "SE"
+  const url = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
+  fetchData(url)
+})
