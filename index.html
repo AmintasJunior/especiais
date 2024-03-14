@@ -13,6 +13,8 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 
 
 
@@ -68,7 +70,7 @@
                   <th>Situação</th>
                   <th>VL. Investimento</th>
                   <th>VL. Custeio</th>
-                  <!-- <th>Detalhes PGTO</th> -->
+                  <th>Mais Detalhes</th>
                 </tr>
               </thead>
               <tbody>
@@ -80,6 +82,7 @@
             <p>Total</p>
             <p id="totalInvestimento">R$ 0,00</p>
             <p id="totalCusteio">R$ 0,00</p>
+            <p></p>
           </div>
         </div>
 
@@ -89,6 +92,19 @@
             <button id="exportPDFButton">pdf</button>
         </div>
     </div>
+
+    <!-- Botão para abrir o modal -->
+    <span onclick="abrirModalDetalhes()" class="eye-icon">👁️</span>
+
+    <!-- O Modal -->
+    <div id="modalDetalhes" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="fecharModalDetalhes()">&times;</span>
+        <p>Aqui vão os detalhes que você deseja mostrar no modal.</p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo asperiores vitae! Tempora maxime earum nostrum facere quidem ea rem, architecto molestias perferendis non maiores quia excepturi? Vero, animi distinctio.
+      </div>
+    </div>
+
 
       <script src="script.js"></script>
     </div>

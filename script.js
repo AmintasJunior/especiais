@@ -136,39 +136,39 @@ function filtrarDados() {
 }
 
 function displayData(data) {
-  let dadosOrdenados = [...data].sort((a, b) =>
-    limparNome(a.nome_beneficiario_plano_acao).localeCompare(
-      limparNome(b.nome_beneficiario_plano_acao)
-    )
-  )
-
   const tableBody = document.querySelector("#dadosTabela tbody")
   tableBody.innerHTML = ""
 
   let totalInvestimento = 0
   let totalCusteio = 0
 
-  dadosOrdenados.forEach((item) => {
+  data.forEach((item) => {
     const row = document.createElement("tr")
+
+    const valorInvestimento =
+      parseFloat(item.valor_investimento_plano_acao) || 0 // Converte para número, usa 0 se falhar
+    const valorCusteio = parseFloat(item.valor_custeio_plano_acao) || 0 // Converte para número, usa 0 se falhar
+
     row.innerHTML = `
-            <td>${limparNome(item.nome_beneficiario_plano_acao)}</td>
-            <td>${item.ano_plano_acao}</td>
-            <td>${item.nome_parlamentar_emenda_plano_acao}</td>
-            <td>${item.codigo_plano_acao}</td>
-            <td>${item.situacao_plano_acao}</td>
-            <td>${item.valor_investimento_plano_acao.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}</td>
-            <td>${item.valor_custeio_plano_acao.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}</td>
-        `
+      <td>${limparNome(item.nome_beneficiario_plano_acao)}</td>
+      <td>${item.ano_plano_acao}</td>
+      <td>${item.nome_parlamentar_emenda_plano_acao}</td>
+      <td>${item.codigo_plano_acao}</td>
+      <td>${item.situacao_plano_acao}</td>
+      <td>${valorInvestimento.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      })}</td>
+      <td>${valorCusteio.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      })}</td>
+      <td><span onclick="abrirModalDetalhes()" class="eye-icon"><i class="far fa-eye"></i></span></td>
+    `
     tableBody.appendChild(row)
 
-    totalInvestimento += item.valor_investimento_plano_acao
-    totalCusteio += item.valor_custeio_plano_acao
+    totalInvestimento += valorInvestimento
+    totalCusteio += valorCusteio
   })
 
   document.getElementById("totalInvestimento").textContent =
@@ -178,6 +178,30 @@ function displayData(data) {
     })
   document.getElementById("totalCusteio").textContent =
     totalCusteio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+}
+
+// Função para abrir o modal
+function abrirModalDetalhes() {
+  document.getElementById("modalDetalhes").style.display = "block"
+}
+
+// Função para fechar o modal
+function fecharModalDetalhes() {
+  document.getElementById("modalDetalhes").style.display = "none"
+}
+
+// Fechar o modal clicando fora dele
+window.onclick = function (event) {
+  if (event.target == document.getElementById("modalDetalhes")) {
+    fecharModalDetalhes()
+  }
+}
+
+// Fechar o modal clicando fora dele
+window.onclick = function (event) {
+  if (event.target == document.getElementById("modalDetalhes")) {
+    fecharModalDetalhes()
+  }
 }
 
 function exportToExcel() {

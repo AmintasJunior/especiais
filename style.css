@@ -161,31 +161,41 @@ body {
 }
 
 #dadosTabela th:nth-child(5) {
-  width: 10%;
+  width: 8%;
 }
 
 #dadosTabela th:nth-child(6) {
-  width: 18%;
+  width: 16%;
 }
 
 #dadosTabela th:nth-child(7) {
-  width: 18%;
+  width: 16%;
+}
+
+#dadosTabela th:nth-child(8) {
+  width: 6%;
 }
 
 #rodape p:nth-child(1) {
-  width: 66%;
+  width: 62%;
   text-align: right;
   margin-top: 7px;
 }
 
 #rodape p:nth-child(2) {
-  width: 17%;
+  width: 16%;
   text-align: center;
   margin-top: 7px;
 }
 
 #rodape p:nth-child(3) {
-  width: 17%;
+  width: 16%;
+  text-align: center;
+  margin-top: 7px;
+}
+
+#rodape p:nth-child(4) {
+  width: 6%;
   text-align: center;
   margin-top: 7px;
 }
@@ -278,7 +288,43 @@ form label {
   text-align: center;
 }
 
-#exportExcelButton {
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  cursor: pointer;
+}
+
+.eye-icon {
+  font-size: 14px;
+  cursor: pointer;
+  color: #434343;
 }
 
 @media only screen and (max-width: 600px) {
