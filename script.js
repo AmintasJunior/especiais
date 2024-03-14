@@ -76,6 +76,12 @@ function filtrarDados() {
   const filtroClientesACCheckbox = document.getElementById("Clientes-AC")
   const filtroTodosMunicCheckbox = document.getElementById("Todos-Munic")
 
+  if (filtroClientesACCheckbox.checked && filtroTodosMunicCheckbox.checked) {
+    // Se ambos os checkboxes estiverem marcados, exibir todos os dados da tabela
+    displayData(dadosCompletos)
+    return
+  }
+
   const dadosFiltrados = dadosCompletos.filter((item) => {
     const nomeMatch =
       !filtroNome ||
@@ -173,6 +179,77 @@ function displayData(data) {
   document.getElementById("totalCusteio").textContent =
     totalCusteio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
 }
+
+function exportToExcel() {
+  const dados = dadosCompletos.map((item) => ({
+    Nome: limparNome(item.nome_beneficiario_plano_acao),
+    Ano: item.ano_plano_acao,
+    Parlamentar: item.nome_parlamentar_emenda_plano_acao,
+    Código: item.codigo_plano_acao,
+    Situação: item.situacao_plano_acao,
+    Investimento: item.valor_investimento_plano_acao,
+    Custeio: item.valor_custeio_plano_acao,
+  }))
+
+  const ws = XLSX.utils.json_to_sheet(dados)
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, "Dados")
+
+  XLSX.writeFile(wb, "dados.xlsx")
+}
+
+document
+  .getElementById("exportExcelButton")
+  .addEventListener("click", exportToExcel)
+
+function exportToExcel() {
+  const table = document.getElementById("dadosTabela")
+  const filename = "dados.xlsx"
+  const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"
+  const blob = new Blob([tableToExcel(table)], { type: fileType })
+  saveAs(blob, filename)
+}
+
+document
+  .getElementById("exportExcelButton")
+  .addEventListener("click", exportToExcel)
+function exportToExcel() {
+  const wb = XLSX.utils.table_to_book(document.getElementById("dadosTabela"), {
+    sheet: "Sheet JS",
+  })
+  XLSX.writeFile(wb, "Transferências Especiais - AC.xlsx")
+}
+
+function exportToPDF() {
+  const options = {
+    margin: 1,
+    filename: "documento.pdf",
+    image: { type: "png", quality: 1 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+    header: {
+      height: "1in",
+      contents: '<img src="./img/cabecalho.png" style="width: 100%;" />',
+    },
+    footer: {
+      height: "1in",
+      contents: '<img src="./img/rodape.png" style="width: 100%;" />',
+    },
+  }
+
+  const content = document.getElementById("dadosTabela")
+
+  html2pdf().from(content).set(options).save()
+}
+
+document
+  .getElementById("exportPDFButton")
+  .addEventListener("click", exportToPDF)
+
+document
+  .getElementById("exportPDFButton")
+  .addEventListener("click", exportToPDF)
 
 document
   .getElementById("filtro_beneficiario")
