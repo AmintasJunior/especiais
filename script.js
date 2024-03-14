@@ -1,13 +1,13 @@
-let dadosCompletos = [] // Armazena os dados completos para reutilização
+let dadosCompletos = []
 
 async function fetchData(url) {
   const response = await fetch(url)
   const data = await response.json()
-  dadosCompletos = data // Armazena os dados recebidos para filtragem futura
+  dadosCompletos = data
   preencherAnosDisponiveis()
   preencherParlamentaresDisponiveis()
-  preencherBeneficiariosDisponiveis() // Corrigido o nome da função
-  filtrarDados() // Exibe todos os dados inicialmente, já ordenados
+  preencherBeneficiariosDisponiveis()
+  filtrarDados()
 }
 
 function limparNome(nome) {
@@ -19,13 +19,12 @@ function limparNome(nome) {
 }
 
 function preencherBeneficiariosDisponiveis() {
-  // Corrigido o nome da função
   const beneficiarios = Array.from(
     new Set(dadosCompletos.map((item) => item.nome_beneficiario_plano_acao))
   ).sort()
-  const selectBeneficiario = document.getElementById("filtro_beneficiario") // Corrigido o nome da variável
+  const selectBeneficiario = document.getElementById("filtro_beneficiario")
   selectBeneficiario.innerHTML =
-    "<option value=''>Todos os Beneficiários</option>" // Corrigido o nome da variável
+    "<option value=''>Todos os Beneficiários</option>"
   beneficiarios.forEach((beneficiario) => {
     const option = document.createElement("option")
     option.value = beneficiario
@@ -74,6 +73,9 @@ function filtrarDados() {
     .getElementById("filtro_parlamentar")
     .value.toLowerCase()
 
+  const filtroClientesACCheckbox = document.getElementById("Clientes-AC")
+  const filtroTodosMunicCheckbox = document.getElementById("Todos-Munic")
+
   const dadosFiltrados = dadosCompletos.filter((item) => {
     const nomeMatch =
       !filtroNome ||
@@ -86,14 +88,48 @@ function filtrarDados() {
       item.nome_parlamentar_emenda_plano_acao
         .toLowerCase()
         .includes(filtroParlamentar)
-    return nomeMatch && anoMatch && parlamentarMatch
+
+    const filtroClientesACAtivo =
+      filtroClientesACCheckbox.checked &&
+      [
+        "ARAUA",
+        "CANHOBA",
+        "CEDRO DE SAO JOAO",
+        "CUMBE",
+        "GARARU",
+        "GENERAL MAYNARD",
+        "GRACCHO CARDOSO",
+        "ITABAIANINHA",
+        "ITABI",
+        "MACAMBIRA",
+        "MALHADA DOS BOIS",
+        "MARUIM",
+        "MURIBECA",
+        "NOSSA SENHORA DA GLORIA",
+        "PORTO DA FOLHA",
+        "PROPRIA",
+        "RIACHUELO",
+        "SANTO AMARO DAS BROTAS",
+        "SAO FRANCISCO",
+        "TELHA",
+        "TOMAR DO GERU",
+      ].includes(limparNome(item.nome_beneficiario_plano_acao))
+
+    const filtroTodosMunicAtivo = filtroTodosMunicCheckbox.checked
+
+    return (
+      nomeMatch &&
+      anoMatch &&
+      parlamentarMatch &&
+      (filtroClientesACAtivo || !filtroClientesACCheckbox.checked) &&
+      (filtroTodosMunicAtivo || !filtroTodosMunicCheckbox.checked)
+    )
   })
 
   displayData(dadosFiltrados)
 }
 
 function displayData(data) {
-  // Ordena os dados por nome do beneficiário de forma alfabética antes da exibição
   let dadosOrdenados = [...data].sort((a, b) =>
     limparNome(a.nome_beneficiario_plano_acao).localeCompare(
       limparNome(b.nome_beneficiario_plano_acao)
@@ -101,7 +137,7 @@ function displayData(data) {
   )
 
   const tableBody = document.querySelector("#dadosTabela tbody")
-  tableBody.innerHTML = "" // Limpa a tabela antes de adicionar novos dados
+  tableBody.innerHTML = ""
 
   let totalInvestimento = 0
   let totalCusteio = 0
@@ -129,7 +165,6 @@ function displayData(data) {
     totalCusteio += item.valor_custeio_plano_acao
   })
 
-  // Atualiza os totais no HTML
   document.getElementById("totalInvestimento").textContent =
     totalInvestimento.toLocaleString("pt-BR", {
       style: "currency",
@@ -147,10 +182,13 @@ document
   .getElementById("filtro_parlamentar")
   .addEventListener("change", filtrarDados)
 
+document.getElementById("Clientes-AC").addEventListener("change", filtrarDados)
+document.getElementById("Todos-Munic").addEventListener("change", filtrarDados)
 
-
-// Inicializa a busca e exibição de dados
 document.addEventListener("DOMContentLoaded", (event) => {
+  // Ativar o checkbox "Clientes-AC" ao carregar a página
+  document.getElementById("Clientes-AC").checked = true
+
   const uf = "SE"
   const url = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
   fetchData(url)
