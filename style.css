@@ -276,3 +276,57 @@ form label {
 
 #exportExcelButton {
 }
+
+@media only screen and (max-width: 600px) {
+  /* Estilos para telas menores, como celulares */
+
+  #caixa-tabela {
+    width: auto;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  #dadosTabela th,
+  #dadosTabela td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  #filtros {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 15px; /* Ajuste para adicionar espaço entre os filtros */
+  }
+
+  #txt-filtro-benificiario,
+  #txt-filtro-ano,
+  #txt-filtro-Parlamentar {
+    margin-bottom: 5px; /* Adiciona espaço entre os rótulos de filtro */
+  }
+
+  form {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+    margin-top: 10px; /* Adiciona espaço entre os filtros e os botões */
+  }
+
+  form label {
+    margin-bottom: 5px;
+  }
+
+  #butons {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 7px;
+    gap: 5px;
+    margin: 10px 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  #butons button {
+    padding: 5px 10px; /* Ajusta o padding dos botões para celular */
+    font-size: 13px; /* Ajusta o tamanho da fonte dos botões para celular */
+  }
+}
