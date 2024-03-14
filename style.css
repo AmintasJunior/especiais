@@ -48,6 +48,11 @@ body {
   text-decoration: currentcolor;
 }
 
+#caixa-tabela-buttons {
+  width: 1268px;
+  margin: 0 auto 20px;
+}
+
 #caixa-tabela {
   width: 1268px;
   height: 430px;
@@ -260,7 +265,6 @@ form label {
   display: flex;
   padding: 10px 7px;
   gap: 5px;
-  margin-left: 45px;
 }
 
 #butons button {
