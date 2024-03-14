@@ -327,6 +327,19 @@ form label {
   color: #434343;
 }
 
+.planoAcao {
+  cursor: pointer; /* Muda o cursor para o estilo 'pointer' */
+}
+
+.planoAcao:hover {
+  background-color: rgb(
+    4,
+    95,
+    143
+  ); /* Muda a cor de fundo quando o mouse passa por cima */
+  color: white;
+}
+
 @media only screen and (max-width: 600px) {
   /* Estilos para telas menores, como celulares */
 

@@ -153,16 +153,17 @@ function displayData(data) {
       <td>${limparNome(item.nome_beneficiario_plano_acao)}</td>
       <td>${item.ano_plano_acao}</td>
       <td>${item.nome_parlamentar_emenda_plano_acao}</td>
-      <td>${item.codigo_plano_acao}</td>
+      <td data-id-plano-acao="${item.id_plano_acao}" class="planoAcao">${
+      item.codigo_plano_acao
+    }</td>
       <td>${item.situacao_plano_acao}</td>
-      <td>${valorInvestimento.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      })}</td>
-      <td>${valorCusteio.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      })}</td>
+      <td>${(
+        parseFloat(item.valor_investimento_plano_acao) || 0
+      ).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</td>
+      <td>${(parseFloat(item.valor_custeio_plano_acao) || 0).toLocaleString(
+        "pt-BR",
+        { style: "currency", currency: "BRL" }
+      )}</td>
       <td><span onclick="abrirModalDetalhes()" class="eye-icon"><i class="far fa-eye"></i></span></td>
     `
     tableBody.appendChild(row)
@@ -285,6 +286,23 @@ document
 
 document.getElementById("Clientes-AC").addEventListener("change", filtrarDados)
 document.getElementById("Todos-Munic").addEventListener("change", filtrarDados)
+
+document
+  .querySelector("#dadosTabela tbody")
+  .addEventListener("click", (event) => {
+    let target = event.target
+
+    // Navega para cima na árvore do DOM até encontrar uma célula <td> com a classe 'planoAcao'
+    while (target != null && !target.classList.contains("planoAcao")) {
+      target = target.parentNode
+    }
+
+    if (target && target.dataset.idPlanoAcao) {
+      const idPlanoAcao = target.dataset.idPlanoAcao
+      const link = `https://especiais.transferegov.sistema.gov.br/transferencia-especial/plano-acao/detalhe/${idPlanoAcao}/dados-basicos`
+      window.open(link, "_blank")
+    }
+  })
 
 document.addEventListener("DOMContentLoaded", (event) => {
   // Ativar o checkbox "Clientes-AC" ao carregar a página
