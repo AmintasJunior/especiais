@@ -142,13 +142,18 @@ function filtrarDados() {
 }
 
 function displayData(data) {
+  let dadosOrdenados = [...data].sort((a, b) =>
+    limparNome(a.nome_beneficiario_plano_acao).localeCompare(
+      limparNome(b.nome_beneficiario_plano_acao)
+    )
+  )
   const tableBody = document.querySelector("#dadosTabela tbody")
   tableBody.innerHTML = ""
 
   let totalInvestimento = 0
   let totalCusteio = 0
 
-  data.forEach((item) => {
+  dadosOrdenados.forEach((item) => {
     const row = document.createElement("tr")
 
     const valorInvestimento =
