@@ -1,13 +1,17 @@
 let dadosCompletos = []
 
 async function fetchData(url) {
-  const response = await fetch(url)
-  const data = await response.json()
-  dadosCompletos = data
-  preencherAnosDisponiveis()
-  preencherParlamentaresDisponiveis()
-  preencherBeneficiariosDisponiveis()
-  filtrarDados()
+  try {
+    const response = await fetch(url)
+    const data = await response.json()
+    dadosCompletos = data
+    preencherAnosDisponiveis()
+    preencherParlamentaresDisponiveis()
+    preencherBeneficiariosDisponiveis()
+    filtrarDados()
+  } catch (error) {
+    console.error("Erro ao buscar dados: ", error)
+  }
 }
 
 function limparNome(nome) {
@@ -19,9 +23,11 @@ function limparNome(nome) {
 }
 
 function preencherBeneficiariosDisponiveis() {
-  const beneficiarios = Array.from(
-    new Set(dadosCompletos.map((item) => item.nome_beneficiario_plano_acao))
-  ).sort()
+  const beneficiarios = dadosCompletos
+    .map((item) => limparNome(item.nome_beneficiario_plano_acao))
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .sort((a, b) => a.length - b.length)
+
   const selectBeneficiario = document.getElementById("filtro_beneficiario")
   selectBeneficiario.innerHTML =
     "<option value=''>Todos os Beneficiários</option>"
@@ -203,37 +209,6 @@ window.onclick = function (event) {
   if (event.target == document.getElementById("modalDetalhes")) {
     fecharModalDetalhes()
   }
-}
-
-function exportToExcel() {
-  const dados = dadosCompletos.map((item) => ({
-    Nome: limparNome(item.nome_beneficiario_plano_acao),
-    Ano: item.ano_plano_acao,
-    Parlamentar: item.nome_parlamentar_emenda_plano_acao,
-    Código: item.codigo_plano_acao,
-    Situação: item.situacao_plano_acao,
-    Investimento: item.valor_investimento_plano_acao,
-    Custeio: item.valor_custeio_plano_acao,
-  }))
-
-  const ws = XLSX.utils.json_to_sheet(dados)
-  const wb = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(wb, ws, "Dados")
-
-  XLSX.writeFile(wb, "dados.xlsx")
-}
-
-document
-  .getElementById("exportExcelButton")
-  .addEventListener("click", exportToExcel)
-
-function exportToExcel() {
-  const table = document.getElementById("dadosTabela")
-  const filename = "dados.xlsx"
-  const fileType =
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"
-  const blob = new Blob([tableToExcel(table)], { type: fileType })
-  saveAs(blob, filename)
 }
 
 document
