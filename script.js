@@ -190,6 +190,28 @@ function displayData(data) {
     })
   document.getElementById("totalCusteio").textContent =
     totalCusteio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+
+  // Agora que os dados foram inseridos, obtenha a contagem de linhas
+  let contagem = contarLinhas("corpoTabela") // Substitua "corpoTabela" pelo ID correto, se necessário
+
+  // Atualize o elemento HTML com a nova contagem de linhas
+  document.getElementById("contagemLinhas").textContent =
+    "Total de Instrumentos:  " + contagem
+
+  // Opcionalmente, se quiser manter a contagem em uma variável dentro de `displayData` por algum outro motivo:
+  let contagemLinhas = contagem // Agora `contagemLinhas` contém o número de linhas
+
+  function contarLinhas(idDaTabela) {
+    var corpoTabela = document.getElementById(idDaTabela) // Usa o ID para selecionar diretamente o tbody
+    if (corpoTabela) {
+      return corpoTabela.rows.length // Retorna o número de linhas no tbody
+    } else {
+      // Se, por algum motivo, o tbody não for encontrado, tenta contar as linhas diretamente na tabela
+      // Isso é mais uma garantia, mas com a estrutura fornecida, o tbody deve sempre ser encontrado
+      var tabela = document.getElementById("dadosTabela")
+      return tabela.rows.length
+    }
+  }
 }
 
 // Função para abrir o modal

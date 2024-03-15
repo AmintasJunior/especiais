@@ -134,7 +134,7 @@ body {
 
 #rodape {
   width: 98%;
-  font-size: 15px;
+  font-size: 14px;
   color: rgb(0, 0, 0);
   font-weight: 600;
   background-color: white; /* Fundo branco */
@@ -180,6 +180,7 @@ body {
   width: 32%;
   text-align: left;
   margin-top: 7px;
+  margin-left: 5px;
 }
 
 #rodape p:nth-child(2) {
