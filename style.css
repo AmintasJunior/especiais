@@ -15,7 +15,6 @@ body {
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  
 }
 
 #cabeçalho {
@@ -51,7 +50,7 @@ body {
 
 #caixa-tabela-buttons {
   width: 1268px;
-  margin: 0 auto 20px;
+  margin: 0 auto;
 }
 
 #caixa-tabela {
@@ -134,7 +133,7 @@ body {
 }
 
 #rodape {
-  width: 98%;
+  width: 100%;
   font-size: 14px;
   color: rgb(0, 0, 0);
   font-weight: 600;
@@ -178,27 +177,27 @@ body {
 }
 
 #rodape p:nth-child(1) {
-  width: 32%;
+  width: 31%;
   text-align: left;
   margin-top: 7px;
   margin-left: 5px;
 }
 
 #rodape p:nth-child(2) {
-  width: 30%;
+  width: 28%;
   text-align: center;
   margin-top: 7px;
   /* margin-right: 50px; */
 }
 
 #rodape p:nth-child(3) {
-  width: 16%;
+  width: 17%;
   text-align: center;
   margin-top: 7px;
 }
 
 #rodape p:nth-child(4) {
-  width: 16%;
+  width: 17%;
   text-align: center;
   margin-top: 7px;
 }
