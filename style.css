@@ -308,12 +308,13 @@ form label {
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
+  border-radius: 5px;
 }
 
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -324,7 +325,7 @@ form label {
 }
 
 .eye-icon {
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   color: #434343;
 }
