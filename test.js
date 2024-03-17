@@ -1,272 +1,191 @@
-let dadosCompletos = []
-
-async function fetchData(url) {
-  const response = await fetch(url)
-  const data = await response.json()
-  dadosCompletos = data
-  preencherAnosDisponiveis()
-  preencherParlamentaresDisponiveis()
-  preencherBeneficiariosDisponiveis()
-  filtrarDados()
-}
-
-function limparNome(nome) {
-  return nome
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/MUNICIPIO DE |MUNICÍPIO DE /gi, "")
-    .trim()
-}
-
-function preencherBeneficiariosDisponiveis() {
-  const beneficiarios = Array.from(
-    new Set(dadosCompletos.map((item) => item.nome_beneficiario_plano_acao))
-  ).sort()
-  const selectBeneficiario = document.getElementById("filtro_beneficiario")
-  selectBeneficiario.innerHTML =
-    "<option value=''>Todos os Beneficiários</option>"
-  beneficiarios.forEach((beneficiario) => {
-    const option = document.createElement("option")
-    option.value = beneficiario
-    option.textContent = beneficiario
-    selectBeneficiario.appendChild(option)
-  })
-}
-
-function preencherAnosDisponiveis() {
-  const anos = Array.from(
-    new Set(dadosCompletos.map((item) => item.ano_plano_acao))
-  ).sort()
-  const selectAno = document.getElementById("filtro_ano")
-  selectAno.innerHTML = "<option value=''>Todos os anos</option>"
-  anos.forEach((ano) => {
-    const option = document.createElement("option")
-    option.value = ano
-    option.textContent = ano
-    selectAno.appendChild(option)
-  })
-}
-
-function preencherParlamentaresDisponiveis() {
-  const parlamentares = Array.from(
-    new Set(
-      dadosCompletos.map((item) => item.nome_parlamentar_emenda_plano_acao)
-    )
-  ).sort()
-  const selectParlamentar = document.getElementById("filtro_parlamentar")
-  selectParlamentar.innerHTML =
-    "<option value=''>Todos os parlamentares</option>"
-  parlamentares.forEach((parlamentar) => {
-    const option = document.createElement("option")
-    option.value = parlamentar
-    option.textContent = parlamentar
-    selectParlamentar.appendChild(option)
-  })
-}
-
-function filtrarDados() {
-  const filtroNome = document
-    .getElementById("filtro_beneficiario")
-    .value.toLowerCase()
-  const filtroAno = document.getElementById("filtro_ano").value
-  const filtroParlamentar = document
-    .getElementById("filtro_parlamentar")
-    .value.toLowerCase()
-
-  const filtroClientesACCheckbox = document.getElementById("Clientes-AC")
-  const filtroTodosMunicCheckbox = document.getElementById("Todos-Munic")
-
-  if (filtroClientesACCheckbox.checked && filtroTodosMunicCheckbox.checked) {
-    // Se ambos os checkboxes estiverem marcados, exibir todos os dados da tabela
-    displayData(dadosCompletos)
-    return
+// Função para buscar dados do Plano de Ação
+async function fetchPlanoAcaoData(urlPlanoAcao) {
+  try {
+    const response = await fetch(urlPlanoAcao)
+    const data = await response.json()
+    console.log("Dados Plano de Ação carregados:", data.length)
+    return data
+  } catch (error) {
+    console.error("Erro ao buscar dados do Plano de Ação: ", error)
+    return []
   }
-
-  const dadosFiltrados = dadosCompletos.filter((item) => {
-    const nomeMatch =
-      !filtroNome ||
-      limparNome(item.nome_beneficiario_plano_acao)
-        .toLowerCase()
-        .includes(filtroNome)
-    const anoMatch = !filtroAno || item.ano_plano_acao.toString() === filtroAno
-    const parlamentarMatch =
-      !filtroParlamentar ||
-      item.nome_parlamentar_emenda_plano_acao
-        .toLowerCase()
-        .includes(filtroParlamentar)
-
-    const filtroClientesACAtivo =
-      filtroClientesACCheckbox.checked &&
-      [
-        "ARAUA",
-        "CANHOBA",
-        "CEDRO DE SAO JOAO",
-        "CUMBE",
-        "GARARU",
-        "GENERAL MAYNARD",
-        "GRACCHO CARDOSO",
-        "ITABAIANINHA",
-        "ITABI",
-        "MACAMBIRA",
-        "MALHADA DOS BOIS",
-        "MARUIM",
-        "MURIBECA",
-        "NOSSA SENHORA DA GLORIA",
-        "PORTO DA FOLHA",
-        "PROPRIA",
-        "RIACHUELO",
-        "SANTO AMARO DAS BROTAS",
-        "SAO FRANCISCO",
-        "TELHA",
-        "TOMAR DO GERU",
-      ].includes(limparNome(item.nome_beneficiario_plano_acao))
-
-    const filtroTodosMunicAtivo = filtroTodosMunicCheckbox.checked
-
-    return (
-      nomeMatch &&
-      anoMatch &&
-      parlamentarMatch &&
-      (filtroClientesACAtivo || !filtroClientesACCheckbox.checked) &&
-      (filtroTodosMunicAtivo || !filtroTodosMunicCheckbox.checked)
-    )
-  })
-
-  displayData(dadosFiltrados)
 }
 
-function displayData(data) {
-  let dadosOrdenados = [...data].sort((a, b) =>
-    limparNome(a.nome_beneficiario_plano_acao).localeCompare(
-      limparNome(b.nome_beneficiario_plano_acao)
-    )
-  )
+// Função para buscar dados de Empenho
+async function fetchEmpenhoData(urlEmpenho) {
+  try {
+    const response = await fetch(urlEmpenho)
+    const data = await response.json()
+    console.log("Dados Empenho carregados:", data.length)
+    return data
+  } catch (error) {
+    console.error("Erro ao buscar dados de Empenho: ", error)
+    return []
+  }
+}
 
-  const tableBody = document.querySelector("#dadosTabela tbody")
-  tableBody.innerHTML = ""
+// Função para buscar todos os dados de Liquidação com paginação
+async function fetchLiquidacaoData() {
+  try {
+    const urlLiquidacao =
+      "https://api.transferegov.gestao.gov.br/transferenciasespeciais/documento_habil_especial?limit=1000"
+    const response = await fetch(urlLiquidacao)
 
-  let totalInvestimento = 0
-  let totalCusteio = 0
+    if (!response.ok) {
+      throw new Error(
+        `Erro ao buscar dados de Liquidação: ${response.statusText}`
+      )
+    }
 
-  dadosOrdenados.forEach((item) => {
-    const row = document.createElement("tr")
-    row.innerHTML = `
-            <td>${limparNome(item.nome_beneficiario_plano_acao)}</td>
-            <td>${item.ano_plano_acao}</td>
-            <td>${item.nome_parlamentar_emenda_plano_acao}</td>
-            <td>${item.codigo_plano_acao}</td>
-            <td>${item.situacao_plano_acao}</td>
-            <td>${item.valor_investimento_plano_acao.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}</td>
-            <td>${item.valor_custeio_plano_acao.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}</td>
-        `
-    tableBody.appendChild(row)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
 
-    totalInvestimento += item.valor_investimento_plano_acao
-    totalCusteio += item.valor_custeio_plano_acao
-  })
+async function fetchPagamentosData() {
+  try {
+    const urlPagamentos = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/ordem_pagamento_ordem_bancaria_especial?limit=1000`
+    const response = await fetch(urlPagamentos)
 
-  document.getElementById("totalInvestimento").textContent =
-    totalInvestimento.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
+    if (!response.ok) {
+      throw new Error(
+        `Erro ao buscar dados de Pagamentos: ${response.statusText}`
+      )
+    }
+
+    const contentType = response.headers.get("content-type")
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("Resposta da API não é um JSON válido")
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
+
+async function cruzarComEmpenho(dadosPlanoAcao, dadosEmpenho) {
+  return dadosPlanoAcao
+    .map((item) => {
+      // Encontra o empenho correspondente no array de dados de empenho
+      const empenhoCorrespondente = dadosEmpenho.find(
+        (emp) => emp.id_empenho === item.id_empenho
+      )
+
+      // Retorna o item com os dados do empenho, se encontrado
+      return empenhoCorrespondente
+        ? {
+            ...item,
+            empenho: empenhoCorrespondente,
+          }
+        : null // Retorna null se o empenho correspondente não for encontrado
     })
-  document.getElementById("totalCusteio").textContent =
-    totalCusteio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+    .filter(Boolean) // Filtra para remover os itens nulos
 }
 
-function exportToExcel() {
-  const dados = dadosCompletos.map((item) => ({
-    Nome: limparNome(item.nome_beneficiario_plano_acao),
-    Ano: item.ano_plano_acao,
-    Parlamentar: item.nome_parlamentar_emenda_plano_acao,
-    Código: item.codigo_plano_acao,
-    Situação: item.situacao_plano_acao,
-    Investimento: item.valor_investimento_plano_acao,
-    Custeio: item.valor_custeio_plano_acao,
-  }))
-
-  const ws = XLSX.utils.json_to_sheet(dados)
-  const wb = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(wb, ws, "Dados")
-
-  XLSX.writeFile(wb, "dados.xlsx")
-}
-
-document
-  .getElementById("exportExcelButton")
-  .addEventListener("click", exportToExcel)
-
-function exportToExcel() {
-  const table = document.getElementById("dadosTabela")
-  const filename = "dados.xlsx"
-  const fileType =
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"
-  const blob = new Blob([tableToExcel(table)], { type: fileType })
-  saveAs(blob, filename)
-}
-
-document
-  .getElementById("exportExcelButton")
-  .addEventListener("click", exportToExcel)
-function exportToExcel() {
-  const wb = XLSX.utils.table_to_book(document.getElementById("dadosTabela"), {
-    sheet: "Sheet JS",
+// Função para cruzar o resultado anterior com Liquidação
+async function cruzarComLiquidacao(dadosCruzados, dadosLiquidacao) {
+  return dadosCruzados.map((item) => {
+    if (!item.empenho) {
+      console.error("Empenho não encontrado para o item:", item)
+      return item
+    }
+    // Filtra as liquidações com base no ID do empenho
+    const liquidacoes = dadosLiquidacao.filter(
+      (l) => l.id_empenho === item.empenho.id_empenho
+    )
+    // Retorna o item com as liquidações
+    return {
+      ...item,
+      liquidacao: liquidacoes,
+    }
   })
-  XLSX.writeFile(wb, "Transferências Especiais - AC.xlsx")
 }
 
-function exportToPDF() {
-  const options = {
-    margin: 1,
-    filename: "documento.pdf",
-    image: { type: "png", quality: 1 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-    header: {
-      height: "1in",
-      contents: '<img src="./img/cabecalho.png" style="width: 100%;" />',
-    },
-    footer: {
-      height: "1in",
-      contents: '<img src="./img/rodape.png" style="width: 100%;" />',
-    },
+// Função para cruzar o resultado anterior com Pagamento
+async function cruzarComPagamento(dadosCruzados, dadosPagamento) {
+  return dadosCruzados.map((item) => {
+    // Verifica se o array de liquidações está vazio
+    if (!Array.isArray(item.liquidacao) || item.liquidacao.length === 0) {
+      console.error("Liquidação não encontrada para o item:", item)
+      return item
+    }
+    // Usa reduce apenas se houver liquidações
+    const pagamentos = item.liquidacao.reduce((acc, liqui) => {
+      const pagamentosRelacionados = dadosPagamento.filter(
+        (p) => p.id_dh === liqui.id_dh
+      )
+      return acc.concat(pagamentosRelacionados)
+    }, [])
+    return {
+      ...item,
+      pagamentos: pagamentos,
+    }
+  })
+}
+
+async function unificarDados(
+  urlPlanoAcao,
+  urlEmpenho,
+  urlLiquidacao,
+  urlPagamentos
+) {
+  try {
+    const dadosPlanoAcao = await fetchPlanoAcaoData(urlPlanoAcao)
+    const dadosEmpenho = await fetchEmpenhoData(urlEmpenho)
+    const dadosLiquidacao = await fetchLiquidacaoData(urlLiquidacao)
+    const dadosPagamento = await fetchPagamentosData(urlPagamentos)
+
+    const resultadoPlanoEmpenho = await cruzarComEmpenho(
+      dadosPlanoAcao,
+      dadosEmpenho
+    )
+    console.log(
+      "Após cruzar Plano de Ação com Empenho:",
+      resultadoPlanoEmpenho.length
+    )
+
+    const resultadoPlanoEmpenhoLiquidacao = await cruzarComLiquidacao(
+      resultadoPlanoEmpenho,
+      dadosLiquidacao
+    )
+    console.log(
+      "Após cruzar com Liquidação:",
+      resultadoPlanoEmpenhoLiquidacao.length
+    )
+
+    const resultadoFinal = await cruzarComPagamento(
+      resultadoPlanoEmpenhoLiquidacao,
+      dadosPagamento
+    )
+    console.log(
+      "Resultado Final após cruzar com Pagamento:",
+      resultadoFinal.length
+    )
+
+    return resultadoFinal
+  } catch (error) {
+    console.error("Erro durante a unificação dos dados:", error)
+    return []
   }
-
-  const content = document.getElementById("dadosTabela")
-
-  html2pdf().from(content).set(options).save()
 }
 
-document
-  .getElementById("exportPDFButton")
-  .addEventListener("click", exportToPDF)
+// Substitua as URLs de exemplo pelas suas URLs reais
+const uf = "SE"
+const urlEmpenho = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/empenho_especial?uf_beneficiario_empenho=eq.${uf}`
+const urlPlanoAcao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
+const urlLiquidacao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/documento_habil_especial?limit=1000`
+const urlPagamentos = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/ordem_pagamento_ordem_bancaria_especial?limit=1000`
 
-document
-  .getElementById("exportPDFButton")
-  .addEventListener("click", exportToPDF)
-
-document
-  .getElementById("filtro_beneficiario")
-  .addEventListener("input", filtrarDados)
-document.getElementById("filtro_ano").addEventListener("change", filtrarDados)
-document
-  .getElementById("filtro_parlamentar")
-  .addEventListener("change", filtrarDados)
-
-document.getElementById("Clientes-AC").addEventListener("change", filtrarDados)
-document.getElementById("Todos-Munic").addEventListener("change", filtrarDados)
-
-document.addEventListener("DOMContentLoaded", (event) => {
-  // Ativar o checkbox "Clientes-AC" ao carregar a página
-  document.getElementById("Clientes-AC").checked = true
-
-  const uf = "SE"
-  const url = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
-  fetchData(url)
-})
+unificarDados(urlPlanoAcao, urlEmpenho, urlLiquidacao, urlPagamentos)
+  .then((resultadoFinal) => {
+    console.log("Resultado Final da Unificação:", resultadoFinal)
+  })
+  .catch((error) => {
+    console.error("Erro durante a unificação dos dados:", error)
+  })
