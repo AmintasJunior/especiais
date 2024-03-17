@@ -426,6 +426,11 @@ form label {
   font-weight: 500;
 }
 
+#gnd {
+  color: rgb(4, 95, 143);
+  font-weight: 600;
+}
+
 .eye-icon {
   font-size: 13px;
   cursor: pointer;

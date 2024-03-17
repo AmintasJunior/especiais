@@ -237,15 +237,16 @@ function abrirModalDetalhes(item) {
     </span>
     
     <span>
-    <span id="negrito">Plano de Ação: </span>
-    <span>${item.codigo_plano_acao}</span>
+    <span id="negrito">GND: </span>
+    <span id="gnd">4 - Investimento</span>
     </span>
 
     <span>
     <span id="negrito">Valor: </span>
     <span>${(
-      parseFloat(item.valor_investimento_plano_acao) || 0
-    ).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+      (parseFloat(item.valor_investimento_plano_acao) || 0) +
+      (parseFloat(item.valor_custeio_plano_acao) || 0)
+    ).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
     </span>
 
   `
@@ -260,8 +261,8 @@ function abrirModalDetalhes(item) {
     </span>
 
     <span>
-    <span id="negrito">Ano: </span>
-    <span>${item.ano_emenda_parlamentar_plano_acao}</span>
+    <span id="negrito">Plano de Ação: </span>
+    <span>${item.codigo_plano_acao}</span>
     </span>
 
     <span>
