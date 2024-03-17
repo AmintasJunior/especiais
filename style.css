@@ -298,16 +298,18 @@ form label {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
+  margin: 9% auto;
+  padding: 10px 20px;
   border: 1px solid #888;
   width: 50%;
+  height: 453px;
+  overflow: auto;
   border-radius: 5px;
 }
 
@@ -322,6 +324,106 @@ form label {
 .close:focus {
   color: black;
   cursor: pointer;
+}
+
+#CaixaModalTxtTitulo {
+  padding: 5px;
+}
+
+#modalTxtTitulo {
+  font-size: 22px;
+  color: black;
+  font-weight: 500;
+  border-bottom: solid 4px rgb(4, 95, 143);
+  padding: 5px;
+}
+
+#CaixaCompletaDadosBasicos {
+  /* border: solid 1px royalblue; */
+  margin: 30px 0 15px;
+}
+
+#seletorCaixaDadosBasico {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 15px;
+}
+
+#modalCaixaDadosBasicos1 {
+  padding: 10px 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+#modalCaixaDadosBasicos2 {
+  padding: 10px 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+#txtTituloDadosBasicos {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  border-bottom: solid 2px rgb(4, 95, 143);
+  padding: 3px;
+}
+
+#CaixaCompletaDadosBancario {
+  /* border: solid 1px royalblue; */
+  margin: 15px 0 15px;
+}
+
+#modalCaixaDadosBancario {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 10px 3px;
+}
+
+#txtTituloDadosBancario {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  border-bottom: solid 2px rgb(4, 95, 143);
+  padding: 3px;
+}
+
+#CaixaCompletaAplicacao {
+  /* border: solid 1px royalblue; */
+  margin: 15px 0 15px;
+}
+
+#modalCaixaAplicacao {
+  padding: 10px 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+#txtTituloAplicacao {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  border-bottom: solid 2px rgb(4, 95, 143);
+  padding: 3px;
+}
+
+#TxtmodalDetalhes {
+  font-weight: 500;
+}
+
+#modalCaixaDadosBancario {
+  /* border: solid 1px red; */
+}
+
+#negrito {
+  font-weight: 500;
 }
 
 .eye-icon {

@@ -99,9 +99,31 @@
     <!-- O Modal -->
     <div id="modalDetalhes" class="modal">
       <div class="modal-content">
-        <span class="close" onclick="fecharModalDetalhes()">&times;</span>
-        <p>Aqui vão os detalhes do plano de ação, <h1>tipo Dados bancários, informações do repasse de recurso e as ações oçamentária onde será aplicado.</h1></p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed illo asperiores vitae! Tempora maxime earum nostrum facere quidem ea rem, architecto molestias perferendis non maiores quia excepturi? Vero, animi distinctio.
+        <div id="CaixaModalTxtTitulo">
+          <span class="close" onclick="fecharModalDetalhes()">&times;</span>
+          <div id="modalTxtTitulo">Detalhes do Plano de Ação</div>
+          
+          
+          <div id="CaixaCompletaDadosBasicos">
+            <div id="txtTituloDadosBasicos">Dados Básicos</div>
+            <div id="seletorCaixaDadosBasico">
+              <div id="modalCaixaDadosBasicos1"></div>
+              <div id="modalCaixaDadosBasicos2"></div>
+            </div>
+        </div>
+
+        
+       <div id="CaixaCompletaDadosBancario">
+          <div id="txtTituloDadosBancario">Dados Bancário</div>
+          <div id="modalCaixaDadosBancario"></div>
+        </div>
+
+          <div id="CaixaCompletaAplicacao">
+            <div id="txtTituloAplicacao">Aplicação dos Recursos</div>
+          <div id="modalCaixaAplicacao"></div>
+        </div>
+
+        </div>
       </div>
     </div>
         <script src="script.js"></script>
