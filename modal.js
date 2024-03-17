@@ -3,6 +3,28 @@ function abrirModalDetalhes(item) {
   const dadosModalBasicos = document.querySelector(
     "#modalDetalhes .modal-content #modalCaixaDadosBasicos1"
   )
+
+  let gndTexto
+
+  if (
+    item.valor_custeio_plano_acao === 0 &&
+    item.valor_investimento_plano_acao !== 0
+  ) {
+    gndTexto = "4 - Investimento"
+  } else if (
+    item.valor_investimento_plano_acao === 0 &&
+    item.valor_custeio_plano_acao !== 0
+  ) {
+    gndTexto = "3 - Custeio"
+  } else if (
+    item.valor_custeio_plano_acao !== 0 &&
+    item.valor_investimento_plano_acao !== 0
+  ) {
+    gndTexto = "3 - Custeio e 4 - Investimento"
+  } else {
+    gndTexto = "Não definido" // ou qualquer outro valor padrão que você queira usar
+  }
+
   dadosModalBasicos.innerHTML = `
     <span>
     <span id="negrito">Beneficiário: </span>
@@ -11,7 +33,7 @@ function abrirModalDetalhes(item) {
     
     <span>
     <span id="negrito">GND: </span>
-    <span id="gnd">4 - Investimento</span>
+    <span id="gnd">${gndTexto}</span>
     </span>
 
     <span>
