@@ -300,5 +300,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const uf = "SE"
   const urlPlanoAcao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
   fetchData(urlPlanoAcao)
-
 })

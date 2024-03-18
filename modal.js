@@ -86,27 +86,100 @@ function abrirModalDetalhes(item) {
     <span>${item.numero_conta_plano_acao}-${item.dv_conta_plano_acao}</span>
     </span>
   `
-
-  const dadosModalAplicacao = document.querySelector(
-    "#modalDetalhes .modal-content #modalCaixaAplicacao"
+  // Função para adicionar os itens à tabela especificada
+  const tbodyFuncaoSubfuncao = document.querySelector(
+    "#dadosTabelaFuncaoSubfuncao"
   )
-  dadosModalAplicacao.innerHTML = `
+  const tbodyAcaoOrcamentaria = document.querySelector(
+    "#dadosTabelaAcaoOrcamentaria"
+  )
 
-    <span>
-    <span id="negrito">Politicas Públicas: </span>
-    <span>${verificarDescricaoAreasPoliticas(
-      item.codigo_descricao_areas_politicas_publicas_plano_acao
-    )}</span>
-    </span>
+  // Limpa os tbodys antes de adicionar novos dados
+  tbodyFuncaoSubfuncao.innerHTML = ""
+  tbodyAcaoOrcamentaria.innerHTML = ""
 
-    <span>
-    <span id="negrito">Ação Orçamentária: </span>
-    <span>${verificarDescricaoAreasPoliticas(
-      item.descricao_programacao_orcamentaria_plano_acao
-    )}</span>
-    </span>
+  // Verifica se os campos são null ou vazios e ajusta a mensagem conforme necessário
+  const politicasPublicasRaw =
+    item.codigo_descricao_areas_politicas_publicas_plano_acao || ""
+  const acoesOrcamentariasRaw =
+    item.descricao_programacao_orcamentaria_plano_acao || ""
 
-  `
+  const politicasPublicas = politicasPublicasRaw
+    ? politicasPublicasRaw.split(",")
+    : ["Não cadastrado no Transferegov"]
+  const acoesOrcamentarias = acoesOrcamentariasRaw
+    ? acoesOrcamentariasRaw.split(",")
+    : ["Não cadastrado no Transferegov"]
+
+  // Assume que sempre haverá pelo menos um elemento após a verificação acima
+  for (
+    let i = 0;
+    i < Math.max(politicasPublicas.length, acoesOrcamentarias.length);
+    i++
+  ) {
+    const politicaPublica = politicasPublicas[i] || ""
+    const acaoOrcamentaria = acoesOrcamentarias[i] || ""
+
+    // Processa Função e Subfunção
+    if (politicaPublica) {
+      const [funcao, subFuncao] = politicaPublica.includes("/")
+        ? politicaPublica.split("/")
+        : [politicaPublica, ""]
+      const trFuncaoSubfuncao = document.createElement("tr")
+      const tdFuncao = document.createElement("td")
+      tdFuncao.textContent = funcao.trim()
+      const tdSubFuncao = document.createElement("td")
+      tdSubFuncao.textContent = subFuncao.trim()
+      trFuncaoSubfuncao.appendChild(tdFuncao)
+      trFuncaoSubfuncao.appendChild(tdSubFuncao)
+      tbodyFuncaoSubfuncao.appendChild(trFuncaoSubfuncao)
+    } else if (i === 0) {
+      // Adiciona "Não cadastrado no Transferegov" apenas se não houver nenhum dado
+      const trFuncaoSubfuncao = document.createElement("tr")
+      const td = document.createElement("td")
+      td.textContent = "Não cadastrado no Transferegov"
+      td.setAttribute("colspan", "2")
+      trFuncaoSubfuncao.appendChild(td)
+      tbodyFuncaoSubfuncao.appendChild(trFuncaoSubfuncao)
+    }
+
+    // Processa Ação Orçamentária
+    if (acaoOrcamentaria) {
+      const trAcaoOrcamentaria = document.createElement("tr")
+      const tdAcaoOrcamentaria = document.createElement("td")
+      tdAcaoOrcamentaria.textContent = acaoOrcamentaria.trim()
+      trAcaoOrcamentaria.appendChild(tdAcaoOrcamentaria)
+      tbodyAcaoOrcamentaria.appendChild(trAcaoOrcamentaria)
+    } else if (i === 0) {
+      // Adiciona "Não cadastrado no Transferegov" apenas se não houver nenhum dado
+      const trAcaoOrcamentaria = document.createElement("tr")
+      const td = document.createElement("td")
+      td.textContent = "Não cadastrado no Transferegov"
+      trAcaoOrcamentaria.appendChild(td)
+      tbodyAcaoOrcamentaria.appendChild(trAcaoOrcamentaria)
+    }
+  }
+
+  // const dadosModalAplicacao = document.querySelector(
+  //   "#modalDetalhes .modal-content #modalCaixaAplicacao"
+  // )
+  // dadosModalAplicacao.innerHTML = `
+
+  //   <span>
+  //   <span id="negrito">Politicas Públicas: </span>
+  //   <span>${verificarDescricaoAreasPoliticas(
+  //     item.codigo_descricao_areas_politicas_publicas_plano_acao
+  //   )}</span>
+  //   </span>
+
+  //   <span>
+  //   <span id="negrito">Ação Orçamentária: </span>
+  //   <span>${verificarDescricaoAreasPoliticas(
+  //     item.descricao_programacao_orcamentaria_plano_acao
+  //   )}</span>
+  //   </span>
+
+  // `
 
   // Exibe o modal
   document.getElementById("modalDetalhes").style.display = "block"

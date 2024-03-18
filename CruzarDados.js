@@ -2,7 +2,6 @@ async function fetchPlanoAcaoData(urlPlanoAcao) {
   try {
     const response = await fetch(urlPlanoAcao)
     const data = await response.json()
-    console.log("Dados Plano de Ação carregados:", data.length)
     return data
   } catch (error) {
     console.error("Erro ao buscar dados do Plano de Ação: ", error)
@@ -14,7 +13,6 @@ async function fetchEmpenhoData(urlEmpenho) {
   try {
     const response = await fetch(urlEmpenho)
     const data = await response.json()
-    console.log("Dados Empenho carregados:", data.length)
     return data
   } catch (error) {
     console.error("Erro ao buscar dados de Empenho: ", error)
@@ -74,10 +72,6 @@ async function unificarDados(urlPlanoAcao, urlEmpenho) {
       dadosPlanoAcao,
       dadosEmpenho
     )
-    console.log(
-      "Após cruzar Plano de Ação com Empenho:",
-      resultadoPlanoEmpenho.length
-    )
 
     return resultadoPlanoEmpenho
   } catch (error) {
@@ -92,3 +86,8 @@ const urlEmpenho = `https://api.transferegov.gestao.gov.br/transferenciasespecia
 const urlPlanoAcao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
 
 unificarDados(urlPlanoAcao, urlEmpenho)
+
+export { unificarDados }
+
+// const dadosCompletos = await unificarDados(urlPlanoAcao, urlEmpenho)
+// console.log(dadosCompletos)

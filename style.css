@@ -310,11 +310,11 @@ form label {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 9% auto;
-  padding: 10px 20px;
+  margin: 6% auto;
+  padding: 10px 10px 10px 20px;
   border: 1px solid #888;
-  width: 50%;
-  height: 453px;
+  width: 55%;
+  height: 480px;
   overflow: auto;
   border-radius: 5px;
 }
@@ -435,6 +435,69 @@ form label {
 #gnd {
   color: rgb(4, 95, 143);
   font-weight: 600;
+}
+
+#dadosTabelaAplicacaoFuncao {
+  width: 100%;
+  border-collapse: collapse;
+  border: solid 0.5px #f5f5f5;
+}
+
+#dadosTabelaAplicacaoFuncao thead th {
+  background-color: rgb(4, 95, 143);
+  color: white;
+  font-weight: 500;
+  text-align: left;
+  height: 25px;
+  font-size: 16px;
+  padding-left: 5px;
+}
+
+#dadosTabelaAplicacaoFuncao tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#dadosTabelaAplicacaoFuncao tbody tr:hover {
+  background-color: #ddd;
+}
+
+#dadosTabelaAplicacaoFuncao td {
+  padding: 5px;
+  text-align: left;
+  height: 30px;
+  font-size: 15px;
+}
+
+#dadosTabelaAplicacaoAcao {
+  width: 100%;
+  border-collapse: collapse;
+  border: solid 0.5px #f5f5f5;
+  margin-top: 7px;
+}
+
+#dadosTabelaAplicacaoAcao thead th {
+  background-color: rgb(4, 95, 143);
+  color: white;
+  font-weight: 500;
+  text-align: left;
+  height: 25px;
+  font-size: 16px;
+  padding-left: 5px;
+}
+
+#dadosTabelaAplicacaoAcao tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#dadosTabelaAplicacaoAcao tbody tr:hover {
+  background-color: #ddd;
+}
+
+#dadosTabelaAplicacaoAcao td {
+  padding: 5px;
+  text-align: left;
+  height: 30px;
+  font-size: 15px;
 }
 
 .eye-icon {
