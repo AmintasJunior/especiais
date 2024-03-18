@@ -39,6 +39,10 @@ function abrirModalDetalhes(item) {
 
 function preencherDadosBasicos(elemento, item) {
   let gndTexto = determinarGndTexto(item)
+  let valorTotal =
+    (parseFloat(item.valor_investimento_plano_acao) || 0) +
+    (parseFloat(item.valor_custeio_plano_acao) || 0)
+
   elemento.innerHTML = `
     <span>
       <span id="negrito">Beneficiário: </span>
@@ -46,19 +50,46 @@ function preencherDadosBasicos(elemento, item) {
     </span>
     <span>
       <span id="negrito">GND: </span>
-      <span id="gnd">${gndTexto}</span>
+      <span id="gnd">${gndTexto.tipo}</span>
     </span>
-    <span>
-      <span id="negrito">Valor: </span>
-      <span>${
-        (parseFloat(item.valor_investimento_plano_acao) || 0) +
-        (parseFloat(item.valor_custeio_plano_acao) || 0).toLocaleString(
-          "pt-BR",
-          { style: "currency", currency: "BRL" }
-        )
-      }</span>
-    </span>
+
   `
+
+  // Adicionando informações adicionais se for custeio e/ou investimento
+  if (gndTexto.tipo === "3 - Custeio | 4 - Investimento") {
+    elemento.innerHTML += `
+      <span>
+        <span id="negrito">Valor: </span>
+        <span>${gndTexto.valorCusteio.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })} | ${gndTexto.valorInvestimento.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })}</span>
+      </span>
+    `
+  } else if (gndTexto.tipo === "3 - Custeio") {
+    elemento.innerHTML += `
+      <span>
+        <span id="negrito">Valor: </span>
+        <span>${gndTexto.valorCusteio.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}</span>
+      </span>
+    `
+  } else if (gndTexto.tipo === "4 - Investimento") {
+    elemento.innerHTML += `
+      <span>
+        <span id="negrito">Valor: </span>
+        <span>${gndTexto.valorInvestimento.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}</span>
+      </span>
+    `
+  }
 }
 
 function preencherDadosBasicos2(elemento, item) {
@@ -96,24 +127,36 @@ function preencherDadosBancarios(elemento, item) {
 }
 
 function determinarGndTexto(item) {
+  let resultado = {
+    tipo: "",
+    valorInvestimento: 0,
+    valorCusteio: 0,
+  }
+
   if (
     item.valor_custeio_plano_acao === 0 &&
     item.valor_investimento_plano_acao !== 0
   ) {
-    return "4 - Investimento"
+    resultado.tipo = "4 - Investimento"
+    resultado.valorInvestimento = item.valor_investimento_plano_acao
   } else if (
     item.valor_investimento_plano_acao === 0 &&
     item.valor_custeio_plano_acao !== 0
   ) {
-    return "3 - Custeio"
+    resultado.tipo = "3 - Custeio"
+    resultado.valorCusteio = item.valor_custeio_plano_acao
   } else if (
     item.valor_custeio_plano_acao !== 0 &&
     item.valor_investimento_plano_acao !== 0
   ) {
-    return "3 - Custeio e 4 - Investimento"
+    resultado.tipo = "3 - Custeio | 4 - Investimento"
+    resultado.valorInvestimento = item.valor_investimento_plano_acao
+    resultado.valorCusteio = item.valor_custeio_plano_acao
   } else {
-    return "Não definido"
+    resultado.tipo = "Não definido"
   }
+
+  return resultado
 }
 
 function processarEAdicionarItensTabelas(
