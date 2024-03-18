@@ -39,54 +39,58 @@ function abrirModalDetalhes(item) {
 
 function preencherDadosBasicos(elemento, item) {
   let gndTexto = determinarGndTexto(item)
-  let valorTotal =
-    (parseFloat(item.valor_investimento_plano_acao) || 0) +
-    (parseFloat(item.valor_custeio_plano_acao) || 0)
 
   elemento.innerHTML = `
     <span>
       <span id="negrito">Beneficiário: </span>
-      <span>${item.nome_beneficiario_plano_acao}</span>
+      <span>${limparNome(item.nome_beneficiario_plano_acao)}</span>
     </span>
-    <span>
-      <span id="negrito">GND: </span>
-      <span id="gnd">${gndTexto.tipo}</span>
-    </span>
-
   `
 
   // Adicionando informações adicionais se for custeio e/ou investimento
   if (gndTexto.tipo === "3 - Custeio | 4 - Investimento") {
     elemento.innerHTML += `
-      <span>
-        <span id="negrito">Valor: </span>
-        <span>${gndTexto.valorCusteio.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        })} | ${gndTexto.valorInvestimento.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    })}</span>
-      </span>
-    `
-  } else if (gndTexto.tipo === "3 - Custeio") {
-    elemento.innerHTML += `
-      <span>
-        <span id="negrito">Valor: </span>
+      <span style="display: block; margin-bottom: 6px;">
+        <span id="negrito">Valor Custeio: </span>
         <span>${gndTexto.valorCusteio.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         })}</span>
       </span>
-    `
-  } else if (gndTexto.tipo === "4 - Investimento") {
-    elemento.innerHTML += `
       <span>
-        <span id="negrito">Valor: </span>
+        <span id="negrito">Valor Investimento: </span>
         <span>${gndTexto.valorInvestimento.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         })}</span>
+      </span>
+    `
+  } else if (gndTexto.tipo === "3 - Custeio") {
+    elemento.innerHTML += `
+      <span style="gap: 7px;">
+        <span id="negrito">Valor Custeio: </span>
+        <span>${gndTexto.valorCusteio.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}</span>
+      </span>
+      <span>
+        <span id="negrito">Valor Investimento: </span>
+        <span>R$ 0,00</span>
+      </span>
+    `
+  } else if (gndTexto.tipo === "4 - Investimento") {
+    elemento.innerHTML += `
+      <span style="gap: 7px">
+        <span id="negrito">Valor Investimento: </span>
+        <span>${gndTexto.valorInvestimento.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}</span>
+      </span>
+      <span>
+        <span id="negrito">Valor Custeio: </span>
+        <span>R$ 0,00</span>
       </span>
     `
   }
