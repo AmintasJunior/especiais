@@ -14,9 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 
   </head>
@@ -28,32 +26,32 @@
     </div>
     <div id="container"></div>
 
-      <div id="filtros">
-        
-        <div>
-            <label id="txt-filtro-benificiario" for="filtro_beneficiario">Beneficiário</label>
-            <input type="text" id="filtro_beneficiario" placeholder="Digite o nome do beneficiário...">
-
-        </div>
-        <div>
-            <label id="txt-filtro-ano" for="filtro_ano">Ano</label>
-            <select id="filtro_ano"></select>
-        </div>
-        <div>
-            <label id="txt-filtro-Parlamentar" for="filtro_parlamentar">Parlamentar</label>
-            <select id="filtro_parlamentar"></select>
-        </div>
-        <form>
-          <label for="Clientes-AC">
-              <input type="checkbox" id="Clientes-AC" name="Preferência" value="Clientes AC"> Clientes AC
-          </label><br>
-          <label for="Todos-Munic">
-              <input type="checkbox" id="Todos-Munic" name="Preferência" value="Todos-Munic"> Todos Munic.
-          </label><br>
-
-      </form>
+<div id="filtros">
+    <div class="filtro-container">
+        <label id="txt-filtro-benificiario">Beneficiário</label>
+        <select id="filtro_beneficiario" multiple="multiple"></select>
     </div>
-      
+    <div class="filtro-container">
+        <label for="filtro_ano">Ano</label>
+        <select id="filtro_ano" multiple="multiple"></select>
+        
+    </div>
+    <div class="filtro-container">
+        <label for="filtro_parlamentar">Parlamentar</label>
+        <select id="filtro_parlamentar" multiple="multiple"></select>
+    </div>
+</div>
+
+<form>
+    <label for="Clientes-AC">
+            <input type="checkbox" id="Clientes-AC" name="Preferência" value="Clientes AC" checked> Clientes AC
+    </label><br>
+</form>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <div id="caixa-tabela-buttons">
       <div id="caixa-tabela">
         <div id="linha-grossa-cabeçalho"></div>

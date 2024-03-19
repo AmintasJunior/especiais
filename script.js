@@ -1,5 +1,3 @@
-let dadosCompletos = []
-
 async function fetchData(urlPlanoAcao) {
   try {
     const response = await fetch(urlPlanoAcao)
@@ -8,7 +6,7 @@ async function fetchData(urlPlanoAcao) {
     preencherAnosDisponiveis()
     preencherParlamentaresDisponiveis()
     preencherBeneficiariosDisponiveis()
-    filtrarDados()
+    filtrarDados() // Chama a filtragem inicial
   } catch (error) {
     console.error("Erro ao buscar dados: ", error)
   }
@@ -22,35 +20,33 @@ function limparNome(nome) {
     .trim()
 }
 
+function preencherSelect(selectId, dados, textoInicial) {
+  const selectElement = document.getElementById(selectId)
+  selectElement.innerHTML = `<option value=''>${textoInicial}</option>`
+  dados.forEach((dado) => {
+    const option = document.createElement("option")
+    option.value = dado
+    option.textContent = dado
+    selectElement.appendChild(option)
+  })
+
+  // Aplica o Select2 ao select
+  $(selectElement).select2()
+}
+
 function preencherBeneficiariosDisponiveis() {
   const beneficiarios = dadosCompletos
     .map((item) => limparNome(item.nome_beneficiario_plano_acao))
     .filter((value, index, self) => self.indexOf(value) === index)
-    .sort((a, b) => a.length - b.length)
-
-  const selectBeneficiario = document.getElementById("filtro_beneficiario")
-  selectBeneficiario.innerHTML =
-    "<option value=''>Todos os Beneficiários</option>"
-  beneficiarios.forEach((beneficiario) => {
-    const option = document.createElement("option")
-    option.value = beneficiario
-    option.textContent = beneficiario
-    selectBeneficiario.appendChild(option)
-  })
+    .sort((a, b) => a.localeCompare(b))
+  preencherSelect("filtro_beneficiario", beneficiarios, "Todos")
 }
 
 function preencherAnosDisponiveis() {
   const anos = Array.from(
     new Set(dadosCompletos.map((item) => item.ano_plano_acao))
   ).sort()
-  const selectAno = document.getElementById("filtro_ano")
-  selectAno.innerHTML = "<option value=''>Todos os anos</option>"
-  anos.forEach((ano) => {
-    const option = document.createElement("option")
-    option.value = ano
-    option.textContent = ano
-    selectAno.appendChild(option)
-  })
+  preencherSelect("filtro_ano", anos, "Todos")
 }
 
 function preencherParlamentaresDisponiveis() {
@@ -59,51 +55,54 @@ function preencherParlamentaresDisponiveis() {
       dadosCompletos.map((item) => item.nome_parlamentar_emenda_plano_acao)
     )
   ).sort()
-  const selectParlamentar = document.getElementById("filtro_parlamentar")
-  selectParlamentar.innerHTML =
-    "<option value=''>Todos os parlamentares</option>"
-  parlamentares.forEach((parlamentar) => {
-    const option = document.createElement("option")
-    option.value = parlamentar
-    option.textContent = parlamentar
-    selectParlamentar.appendChild(option)
-  })
+  preencherSelect("filtro_parlamentar", parlamentares, "Todos")
 }
 
 function filtrarDados() {
-  const filtroNome = document
-    .getElementById("filtro_beneficiario")
-    .value.toLowerCase()
-  const filtroAno = document.getElementById("filtro_ano").value
-  const filtroParlamentar = document
-    .getElementById("filtro_parlamentar")
-    .value.toLowerCase()
+  // Obtém os valores selecionados para beneficiários como um array de strings em minúsculas
+  const filtroBeneficiarioValues = Array.from(
+    document.getElementById("filtro_beneficiario").selectedOptions
+  ).map((option) => option.value.toLowerCase())
 
-  const filtroClientesACCheckbox = document.getElementById("Clientes-AC")
-  const filtroTodosMunicCheckbox = document.getElementById("Todos-Munic")
+  // Obtém os valores selecionados para anos como um array de strings
+  const filtroAnoValues = Array.from(
+    document.getElementById("filtro_ano").selectedOptions
+  ).map((option) => option.value)
 
-  if (filtroClientesACCheckbox.checked && filtroTodosMunicCheckbox.checked) {
-    // Se ambos os checkboxes estiverem marcados, exibir todos os dados da tabela
-    displayData(dadosCompletos)
-    return
-  }
+  // Obtém os valores selecionados para parlamentares como um array de strings em minúsculas
+  const filtroParlamentarValues = Array.from(
+    document.getElementById("filtro_parlamentar").selectedOptions
+  ).map((option) => option.value.toLowerCase())
+
+  const filtroClientesACAtivo = document.getElementById("Clientes-AC").checked
 
   const dadosFiltrados = dadosCompletos.filter((item) => {
+    // Verifica se o item atual corresponde a qualquer um dos valores selecionados para beneficiários
     const nomeMatch =
-      !filtroNome ||
-      limparNome(item.nome_beneficiario_plano_acao)
-        .toLowerCase()
-        .includes(filtroNome)
-    const anoMatch = !filtroAno || item.ano_plano_acao.toString() === filtroAno
-    const parlamentarMatch =
-      !filtroParlamentar ||
-      item.nome_parlamentar_emenda_plano_acao
-        .toLowerCase()
-        .includes(filtroParlamentar)
+      !filtroBeneficiarioValues.length ||
+      filtroBeneficiarioValues.includes(
+        limparNome(item.nome_beneficiario_plano_acao).toLowerCase()
+      )
 
-    const filtroClientesACAtivo =
-      filtroClientesACCheckbox.checked &&
+    // Verifica se o item atual corresponde a qualquer um dos valores selecionados para anos
+    const anoMatch =
+      !filtroAnoValues.length ||
+      filtroAnoValues.includes(item.ano_plano_acao.toString())
+
+    // Verifica se o item atual corresponde a qualquer um dos valores selecionados para parlamentares
+    const parlamentarMatch =
+      !filtroParlamentarValues.length ||
+      filtroParlamentarValues.some((parlamentar) =>
+        item.nome_parlamentar_emenda_plano_acao
+          .toLowerCase()
+          .includes(parlamentar)
+      )
+
+    // Verifica se o item atual corresponde à condição do checkbox "Clientes-AC"
+    const estaNaListaAC =
+      !filtroClientesACAtivo ||
       [
+        // Substitua isso pela sua lógica específica, se necessário
         "ARAUA",
         "CANHOBA",
         "CEDRO DE SAO JOAO",
@@ -127,19 +126,21 @@ function filtrarDados() {
         "TOMAR DO GERU",
       ].includes(limparNome(item.nome_beneficiario_plano_acao))
 
-    const filtroTodosMunicAtivo = filtroTodosMunicCheckbox.checked
-
-    return (
-      nomeMatch &&
-      anoMatch &&
-      parlamentarMatch &&
-      (filtroClientesACAtivo || !filtroClientesACCheckbox.checked) &&
-      (filtroTodosMunicAtivo || !filtroTodosMunicCheckbox.checked)
-    )
+    return nomeMatch && anoMatch && parlamentarMatch && estaNaListaAC
   })
 
   displayData(dadosFiltrados)
 }
+
+// Event listeners simplificados para chamar filtrarDados diretamente.
+;[
+  "filtro_beneficiario",
+  "filtro_ano",
+  "filtro_parlamentar",
+  "Clientes-AC",
+].forEach((id) => {
+  document.getElementById(id).addEventListener("change", filtrarDados)
+})
 
 function displayData(data) {
   let dadosOrdenados = [...data].sort((a, b) =>
@@ -220,11 +221,6 @@ function displayData(data) {
   }
 }
 
-function verificarDescricaoAreasPoliticas(valor) {
-  // Verifica se o valor é null e retorna "não cadastrado", caso contrário, retorna o próprio valor
-  return valor === null ? "Não cadastrado no TransfereGov" : valor
-}
-
 document
   .getElementById("exportExcelButton")
   .addEventListener("click", exportToExcel)
@@ -265,16 +261,7 @@ document
   .getElementById("exportPDFButton")
   .addEventListener("click", exportToPDF)
 
-document
-  .getElementById("filtro_beneficiario")
-  .addEventListener("input", filtrarDados)
-document.getElementById("filtro_ano").addEventListener("change", filtrarDados)
-document
-  .getElementById("filtro_parlamentar")
-  .addEventListener("change", filtrarDados)
-
 document.getElementById("Clientes-AC").addEventListener("change", filtrarDados)
-document.getElementById("Todos-Munic").addEventListener("change", filtrarDados)
 
 document
   .querySelector("#dadosTabela tbody")
@@ -293,11 +280,47 @@ document
     }
   })
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  // Ativar o checkbox "Clientes-AC" ao carregar a página
-  document.getElementById("Clientes-AC").checked = true
+document
+  .getElementById("filtro_beneficiario")
+  .addEventListener("change", function () {
+    var selecionados = Array.from(this.selectedOptions).map(
+      (option) => option.text
+    )
+    var displayText =
+      selecionados.length > 2
+        ? selecionados.slice(0, 2).join(", ") +
+          `, +${selecionados.length - 2}...`
+        : selecionados.join(", ")
 
+    document.getElementById("selecoes_beneficiario").textContent = displayText
+
+    // Mostra o div se houver mais de duas seleções
+    if (selecionados.length > 2) {
+      document.getElementById("selecoes_beneficiario").style.display = "block"
+    } else {
+      document.getElementById("selecoes_beneficiario").style.display = "none"
+    }
+  })
+
+document.addEventListener("DOMContentLoaded", async (event) => {
   const uf = "SE"
   const urlPlanoAcao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
-  fetchData(urlPlanoAcao)
+  await fetchData(urlPlanoAcao) // Isso preencherá os filtros e chamará filtrarDados no final.
+
+  // Anexa o evento de mudança ao checkbox "Clientes-AC"
+  document
+    .getElementById("Clientes-AC")
+    .addEventListener("change", filtrarDados)
+
+  // Anexa eventos de mudança aos outros filtros
+  document
+    .getElementById("filtro_beneficiario")
+    .addEventListener("change", filtrarDados)
+  document.getElementById("filtro_ano").addEventListener("change", filtrarDados)
+
+  // Configuração do Select2 para o filtro de parlamentares, se necessário
+  $("#filtro_parlamentar").select2().on("change", filtrarDados)
 })
+
+$("#filtro_beneficiario").select2().on("change", filtrarDados)
+$("#filtro_ano").select2().on("change", filtrarDados)

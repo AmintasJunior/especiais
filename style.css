@@ -365,11 +365,7 @@ form label {
   flex-direction: row;
   justify-content: space-between;
   padding-right: 15px;
-  
 }
-
-
-
 
 #modalCaixaDadosBasicos1 {
   padding: 10px 3px;
@@ -378,7 +374,6 @@ form label {
   justify-content: space-between;
   gap: 7px;
 }
-
 
 #modalCaixaDadosBasicos2 {
   padding: 10px 3px;
