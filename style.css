@@ -17,6 +17,16 @@ body {
   justify-content: center;
 }
 
+#filtro_beneficiario-options {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 9999; /* Garante que a lista suspensa esteja acima de outros elementos */
+}
+
 #cabeçalho {
   background-color: rgb(4, 95, 143);
   height: 70px;
@@ -524,6 +534,250 @@ form label {
     143
   ); /* Muda a cor de fundo quando o mouse passa por cima */
   color: white;
+}
+
+/* Adicione este CSS ao seu arquivo style.css */
+
+/* Estilos para a lista suspensa */
+#filtro_beneficiario-options {
+  display: none; /* Inicialmente oculto */
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1000; /* Para garantir que esteja sobre outros elementos */
+  max-height: 200px; /* Ajuste conforme necessário */
+  overflow-y: auto; /* Adiciona barra de rolagem vertical se necessário */
+}
+
+#filtro_beneficiario-options li {
+  cursor: pointer;
+  list-style: none;
+  padding: 5px;
+}
+
+#filtro_beneficiario-options li:hover {
+  background-color: #f0f0f0;
+}
+
+#filtro_beneficiario-options li.selected .checkmark {
+  display: inline; /* Mostra o checkmark para itens selecionados */
+}
+
+.checkmark {
+  display: none; /* Inicialmente oculto */
+  margin-right: 5px;
+}
+
+/* Estilo para o ícone do checkbox */
+.eye-icon {
+  cursor: pointer;
+}
+
+/* Estilos para o modal */
+.modal {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#caixaModalStitulo {
+  margin-bottom: 20px;
+}
+
+#modalTxtTitulo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Estilo para esconder a lista suspensa por padrão */
+#filtro_beneficiario-options {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 150px; /* Defina a altura máxima desejada */
+  overflow-y: auto;
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+/* Estilo para as opções */
+#filtro_beneficiario-options li {
+  cursor: pointer;
+  padding: 5px;
+  position: relative;
+  display: flex; /* Exibir texto e marcação em linha */
+  align-items: center; /* Alinhar verticalmente */
+}
+
+/* Estilo para o texto */
+#filtro_beneficiario-options li span {
+  flex-grow: 1; /* Permitir que o texto ocupe o espaço restante */
+}
+
+/* Estilo para a marca de seleção */
+.checkmark {
+  margin-left: 5px;
+  display: none;
+}
+
+/* Estilo para destacar a opção selecionada */
+.selected {
+  background-color: #f2f2f2;
+}
+
+.multiselect-wrapper {
+  width: 180px;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 12px;
+  font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+}
+
+.multiselect-wrapper .multiselect-input {
+  width: 100%;
+  padding-right: 50px;
+}
+
+.multiselect-wrapper label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.multiselect-wrapper .multiselect-list {
+  z-index: 1;
+  position: absolute;
+  display: none;
+  background-color: white;
+  border: 1px solid grey;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  margin-top: -2px;
+}
+
+.multiselect-wrapper .multiselect-list.active {
+  display: block;
+}
+
+.multiselect-wrapper .multiselect-list > span {
+  font-weight: bold;
+}
+
+.multiselect-wrapper .multiselect-list .multiselect-checkbox {
+  margin-right: 2px;
+}
+
+.multiselect-wrapper .multiselect-list > span,
+.multiselect-wrapper .multiselect-list li {
+  cursor: default;
+}
+
+.multiselect-wrapper .multiselect-list {
+  padding: 5px;
+  min-width: 200px;
+}
+
+.multiselect-wrapper ul {
+  list-style: none;
+  display: block;
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.multiselect-wrapper ul li {
+  padding-right: 20px;
+  display: block;
+}
+
+.multiselect-wrapper ul li.active {
+  background-color: rgb(0, 102, 255);
+  color: white;
+}
+
+.multiselect-wrapper ul li:hover {
+  background-color: rgb(0, 102, 255);
+  color: white;
+}
+
+.multiselect-input-div {
+  height: 34px;
+}
+
+.multiselect-input-div input {
+  border: 1px solid #ababab;
+  background: #fff;
+  margin: 5px 0 6px 0;
+  padding: 5px;
+  vertical-align: middle;
+}
+
+.multiselect-count {
+  position: relative;
+  text-align: center;
+  border-radius: 2px;
+  background-color: lightblue;
+  display: inline-block !important;
+  padding: 2px 7px;
+  left: -45px;
+}
+
+.multiselect-wrapper.disabled .multiselect-dropdown-arrow {
+  border-top: 5px solid lightgray;
+}
+
+.multiselect-wrapper.disabled .multiselect-count {
+  background-color: lightgray;
+}
+
+.multiselect-dropdown-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  position: absolute;
+  line-height: 20px;
+  text-align: center;
+  display: inline-block !important;
+  margin-top: 17px;
+  margin-left: -42px;
 }
 
 @media only screen and (max-width: 600px) {

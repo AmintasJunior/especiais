@@ -80,7 +80,7 @@ async function unificarDados(urlPlanoAcao, urlEmpenho) {
   }
 }
 
-// Substitua as URLs de exemplo pelas suas URLs reais
+// url
 const uf = "SE"
 const urlEmpenho = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/empenho_especial?uf_beneficiario_empenho=eq.${uf}`
 const urlPlanoAcao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
@@ -89,5 +89,9 @@ unificarDados(urlPlanoAcao, urlEmpenho)
 
 export { unificarDados }
 
-// const dadosCompletos = await unificarDados(urlPlanoAcao, urlEmpenho)
-// console.log(dadosCompletos)
+const dadosCompletos = await unificarDados(urlPlanoAcao, urlEmpenho)
+
+dadosCompletos.forEach((element) => {
+  console.log(element)
+
+  })
