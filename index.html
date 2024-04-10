@@ -29,18 +29,18 @@
 <div id="filtros">
     <div class="filtro-container">
         <label id="txt-filtro-benificiario">Beneficiário</label>
-        <select id="filtro_beneficiario" multiple="multiple"></select>
+        <select style="width: 380px;" id="filtro_beneficiario" multiple="multiple"></select>
     </div>
     <div class="filtro-container">
-        <label for="filtro_ano">Ano</label>
-        <select id="filtro_ano" multiple="multiple"></select>
+        <label id="txt-filtro-ano">Ano</label>
+        <select style="width: 150px;" id="filtro_ano" multiple="multiple"></select>
         
     </div>
     <div class="filtro-container">
-        <label for="filtro_parlamentar">Parlamentar</label>
-        <select id="filtro_parlamentar" multiple="multiple"></select>
+        <label id="txt-filtro-Parlamentar">Parlamentar</label>
+        <select style="width: 250px;" id="filtro_parlamentar" multiple="multiple"></select>
     </div>
-</div>
+
 
 <form>
     <label for="Clientes-AC">
@@ -48,6 +48,7 @@
     </label><br>
 </form>
     </div>
+  </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
@@ -88,8 +89,8 @@
 
       </div>
         <div id="butons">
-           <button id="exportExcelButton">xlsx</button>
-            <button id="exportPDFButton">pdf</button>
+           <button style="cursor: pointer;" id="exportExcelButton">xlsx</button>
+            <!-- <button id="exportPDFButton">pdf</button> -->
         </div>
     </div>
 
