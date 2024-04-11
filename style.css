@@ -727,6 +727,17 @@ form label {
   margin-left: -42px;
 }
 
+#tfooty{
+  display: flex;
+  justify-content: space-between;
+}
+
+#data-api{
+  padding: 5px;
+  font-size: 10px;
+  color: #d8d8d8e5;
+}
+
 @media only screen and (max-width: 600px) {
   /* Estilos para telas menores, como celulares */
 
