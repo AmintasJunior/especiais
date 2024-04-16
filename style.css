@@ -7,7 +7,10 @@
 
 body {
   background-color: white;
+
 }
+
+
 
 #container {
   display: flex;
@@ -490,6 +493,8 @@ form label {
   height: 30px;
   font-size: 15px;
 }
+
+
 
 .eye-icon {
   font-size: 13px;

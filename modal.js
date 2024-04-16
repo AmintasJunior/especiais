@@ -212,3 +212,277 @@ window.onclick = function (event) {
     fecharModalDetalhes()
   }
 }
+
+// Função para imprimir apenas o conteúdo desejado do modal com estilos incluídos, juntamente com cabeçalho e rodapé em imagem
+function imprimirConteudoModalComEstilo() {
+  // Selecionar o conteúdo específico que você deseja imprimir
+  var conteudoParaImpressao = document.getElementById("CaixaModalTxtTitulo").innerHTML;
+
+  // URL das imagens para cabeçalho e rodapé
+  var urlCabecalho = "./img/cabeçalho.png";
+  var urlRodape = "./img/rodape.png";
+
+  // Criar um iframe temporário para imprimir o conteúdo
+  var iframeTemporario = document.createElement('iframe');
+  iframeTemporario.style.position = 'absolute';
+  iframeTemporario.style.width = '0';
+  iframeTemporario.style.height = '0';
+  document.body.appendChild(iframeTemporario);
+
+  // Escrever o conteúdo no iframe com estilos incluídos, juntamente com cabeçalho e rodapé em imagem
+  var conteudoIframe = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Impressão</title>
+    <style>
+    body {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      color: #333;
+    }
+    /* Adicione outros estilos conforme necessário */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+    }
+    
+
+    #caixaModalStitulo {
+      z-index: 1;
+      position: static;
+      padding-bottom: 3px;
+    }
+    
+    #CaixaModalTxtTitulo {
+      overflow-y: scroll;
+      height: 420px;
+    }
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 22px;
+      font-weight: bold;
+      padding-right: 12px;
+      padding-bottom: 12px;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: black;
+      cursor: pointer;
+    }
+    
+    #CaixaModalTxtTitulo {
+      padding: 15px 10px 10px 2px;
+      margin-top: 50px;
+    }
+    
+    #modalTxtTitulo {
+      font-size: 22px;
+      color: black;
+      font-weight: 500;
+      border-bottom: solid 4px rgb(4, 95, 143);
+      padding: 5px;
+    }
+    
+    #CaixaCompletaDadosBasicos {
+      /* border: solid 1px royalblue; */
+      margin: 20px 0 15px;
+    }
+    
+    #seletorCaixaDadosBasico {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-right: 15px;
+    }
+    
+    #modalCaixaDadosBasicos1 {
+      padding: 10px 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 7px;
+    }
+    
+    #modalCaixaDadosBasicos2 {
+      padding: 10px 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 7px;
+    }
+    
+    #txtTituloDadosBasicos {
+      font-size: 18px;
+      color: black;
+      font-weight: 500;
+      border-bottom: solid 2px rgb(4, 95, 143);
+      padding: 3px;
+    }
+    
+    #CaixaCompletaDadosBancario {
+      /* border: solid 1px royalblue; */
+      margin: 15px 0 15px;
+    }
+    
+    #modalCaixaDadosBancario {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 18px 10px 3px;
+    }
+    
+    #txtTituloDadosBancario {
+      font-size: 18px;
+      color: black;
+      font-weight: 500;
+      border-bottom: solid 2px rgb(4, 95, 143);
+      padding: 3px;
+    }
+    
+    #CaixaCompletaAplicacao {
+      /* border: solid 1px royalblue; */
+      margin: 15px 0 15px;
+    }
+    
+    #modalCaixaAplicacao {
+      padding: 10px 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 7px;
+    }
+    
+    #txtTituloAplicacao {
+      font-size: 18px;
+      color: black;
+      font-weight: 500;
+      border-bottom: solid 2px rgb(4, 95, 143);
+      padding: 3px;
+    }
+    
+    #TxtmodalDetalhes {
+      font-weight: 500;
+    }
+    
+    #negrito {
+      font-weight: 500;
+    }
+    
+    #gnd {
+      color: rgb(4, 95, 143);
+      font-weight: 600;
+    }
+    
+    #dadosTabelaAplicacaoFuncao {
+      width: 100%;
+      border-collapse: collapse;
+      border: solid 0.5px #f5f5f5;
+    }
+    
+    #dadosTabelaAplicacaoFuncao thead th {
+      background-color: rgb(4, 95, 143);
+      color: white;
+      font-weight: 500;
+      text-align: left;
+      height: 25px;
+      font-size: 16px;
+      padding-left: 5px;
+    }
+    
+    #dadosTabelaAplicacaoFuncao tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    #dadosTabelaAplicacaoFuncao tbody tr:hover {
+      background-color: #ddd;
+    }
+    
+    #dadosTabelaAplicacaoFuncao td {
+      padding: 5px;
+      text-align: left;
+      height: 30px;
+      font-size: 15px;
+    }
+    
+    #dadosTabelaAplicacaoAcao {
+      width: 100%;
+      border-collapse: collapse;
+      border: solid 0.5px #f5f5f5;
+      margin-top: 7px;
+    }
+    
+    #dadosTabelaAplicacaoAcao thead th {
+      background-color: rgb(4, 95, 143);
+      color: white;
+      font-weight: 500;
+      text-align: left;
+      height: 25px;
+      font-size: 16px;
+      padding-left: 5px;
+    }
+    
+    #dadosTabelaAplicacaoAcao tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    #dadosTabelaAplicacaoAcao tbody tr:hover {
+      background-color: #ddd;
+    }
+    
+    #dadosTabelaAplicacaoAcao td {
+      padding: 5px;
+      text-align: left;
+      height: 30px;
+      font-size: 15px;
+    }
+
+      /* Estilos para o cabeçalho */
+      #cabecalho {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Ajuste conforme necessário */
+        background-image: url(${urlCabecalho});
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      /* Estilos para o rodapé */
+      #rodape {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Ajuste conforme necessário */
+        background-image: url(${urlRodape});
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    </style>
+    </head>
+    <body>
+    <div id="cabecalho"></div>
+    ${conteudoParaImpressao}
+    <div id="rodape"></div>
+    </body>
+    </html>
+  `;
+  var iframeDocumento = iframeTemporario.contentWindow || iframeTemporario.contentDocument;
+  iframeDocumento.document.open();
+  iframeDocumento.document.write(conteudoIframe);
+  iframeDocumento.document.close();
+
+  // Esperar um pouco para garantir que o conteúdo seja carregado no iframe
+  setTimeout(function() {
+    // Chamar o método de impressão do iframe
+    iframeDocumento.focus();
+    iframeDocumento.print();
+    // Remover o iframe temporário após a impressão
+    document.body.removeChild(iframeTemporario);
+  }, 1000); // Aguarda 1 segundo para garantir que o conteúdo seja carregado corretamente
+}
