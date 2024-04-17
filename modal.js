@@ -459,7 +459,7 @@ function imprimirConteudoModalComEstilo() {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 100px; /* Ajuste conforme necessário */
+        height: 40px; /* Ajuste conforme necessário */
         background-image: url(${urlRodape});
         background-size: contain;
         background-repeat: no-repeat;
@@ -489,3 +489,4 @@ function imprimirConteudoModalComEstilo() {
     document.body.removeChild(iframeTemporario);
   }, 1000); // Aguarda 1 segundo para garantir que o conteúdo seja carregado corretamente
 }
+

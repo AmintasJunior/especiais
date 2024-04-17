@@ -342,15 +342,24 @@ form label {
 }
 
 .print{
-  width: 20px;
+  width: 18px;
+}
+
+.CxButtons:hover{
+  background-color: #dfdfdf;
+  width: 25px;
+  border: solid 1px #dfdfdf;
+  border-radius: 1500px;
+
+
 }
 
 .copy{
-  width: 20px;
+  width: 17px;
 }
 
 .close{
-  width: 20px;
+  width: 19px;
 }
 
 .print:hover, 
