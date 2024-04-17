@@ -240,6 +240,7 @@ function imprimirConteudoModalComEstilo() {
       font-family: "Inter", sans-serif;
       font-size: 14px;
       color: #333;
+      padding-top: 35px;
     }
     /* Adicione outros estilos conforme necessário */
     @font-face {
@@ -277,7 +278,7 @@ function imprimirConteudoModalComEstilo() {
     
     #CaixaModalTxtTitulo {
       padding: 15px 10px 10px 2px;
-      margin-top: 50px;
+
     }
     
     #modalTxtTitulo {
@@ -468,8 +469,10 @@ function imprimirConteudoModalComEstilo() {
     <body>
     <div id="cabecalho"></div>
     ${conteudoParaImpressao}
-    <div id="rodape"></div>
     </body>
+    <tfoot>
+    <div id="rodape"></div>
+    </tfoot>
     </html>
   `;
   var iframeDocumento = iframeTemporario.contentWindow || iframeTemporario.contentDocument;

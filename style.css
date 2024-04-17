@@ -7,7 +7,7 @@
 
 body {
   background-color: white;
-
+  margin-top: 0px;
 }
 
 
@@ -304,42 +304,81 @@ form label {
   border-radius: 5px;
 }
 
+#cxCabeçalho{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 4px rgb(4, 95, 143);
+  padding: 5px;
+}
+
 #caixaModalStitulo {
   z-index: 1;
   position: static;
   padding-bottom: 3px;
+  width: 100%;
+  
 }
+
+#cxIcons{
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
+
 
 #CaixaModalTxtTitulo {
-  overflow-y: scroll;
   height: 420px;
+  overflow-y: scroll;
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 22px;
-  font-weight: bold;
-  padding-right: 12px;
-  padding-bottom: 12px;
+.CxButtons{
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+}
+
+.print{
+  width: 20px;
+}
+
+.copy{
+  width: 20px;
+}
+
+.close{
+  width: 20px;
+}
+
+.print:hover, 
+.print:focus {
+  cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
   cursor: pointer;
 }
 
+.copy:hover,
+.copy:focus {
+  cursor: pointer;
+}
+
+
+
 #CaixaModalTxtTitulo {
-  padding: 15px 10px 10px 2px;
+  padding: 0px 10px 10px 2px;
 }
 
 #modalTxtTitulo {
   font-size: 22px;
   color: black;
   font-weight: 500;
-  border-bottom: solid 4px rgb(4, 95, 143);
-  padding: 5px;
+  
 }
 
 #CaixaCompletaDadosBasicos {
