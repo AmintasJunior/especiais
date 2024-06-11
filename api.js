@@ -3,13 +3,14 @@ let dadosCompletos = []
 const uf = "SE"
 const urlPlanoAcao = `https://api.transferegov.gestao.gov.br/transferenciasespeciais/plano_acao_especial?uf_beneficiario_plano_acao=eq.${uf}`
 
+
 //função para buscar os dados na API...
 async function fetchData(urlPlanoAcao) {
   try {
     const response = await fetch(urlPlanoAcao)
     const data = await response.json()
     dadosCompletos = data
-    // console.log(dadosCompletos)
+    console.log(dadosCompletos)
     preencherAnosDisponiveis()
     preencherParlamentaresDisponiveis()
     preencherBeneficiariosDisponiveis()

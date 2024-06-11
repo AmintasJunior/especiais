@@ -32,6 +32,9 @@ function displayData(data) {
         "pt-BR",
         { style: "currency", currency: "BRL" }
       )}</td>
+      <td>${item.nome_banco_plano_acao}</td>
+      <td>${item.numero_agencia_plano_acao + "-" + item.dv_agencia_plano_acao}</td>
+      <td>${item.numero_conta_plano_acao + "-" + item.dv_conta_plano_acao}</td>
       <td><span onclick="abrirModalDetalhes()" class="eye-icon"><i class="far fa-eye"></i></span></td>
     `
 

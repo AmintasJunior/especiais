@@ -213,29 +213,43 @@ window.onclick = function (event) {
   }
 }
 
-// Função para imprimir apenas o conteúdo desejado do modal com estilos incluídos, juntamente com cabeçalho e rodapé em imagem
-function imprimirConteudoModalComEstilo() {
-  // Selecionar o conteúdo específico que você deseja imprimir
-  var conteudoParaImpressao = document.getElementById("CaixaModalTxtTitulo").innerHTML;
 
-  // URL das imagens para cabeçalho e rodapé
+
+function imprimirConteudoModalComEstilo() {
+  var conteudoParaImpressao = document.getElementById("CaixaModalTxtTitulo").innerHTML;
   var urlCabecalho = "./img/cabeçalho.png";
   var urlRodape = "./img/rodape.png";
 
-  // Criar um iframe temporário para imprimir o conteúdo
   var iframeTemporario = document.createElement('iframe');
   iframeTemporario.style.position = 'absolute';
   iframeTemporario.style.width = '0';
   iframeTemporario.style.height = '0';
   document.body.appendChild(iframeTemporario);
 
-  // Escrever o conteúdo no iframe com estilos incluídos, juntamente com cabeçalho e rodapé em imagem
   var conteudoIframe = `
     <!DOCTYPE html>
     <html>
     <head>
     <title>Impressão</title>
     <style>
+    /* Estilos omitidos para brevidade */
+    @media print {
+      #rodape {
+        page-break-inside: avoid;
+        page-break-before: always;
+      }
+    }
+    
+    /* Outros estilos permanecem inalterados */
+    
+    .pagina {
+      height: 100vh; /* Defina a altura da página */
+      overflow: hidden;
+      position: relative;
+      page-break-after: always;
+      // page-break-inside: avoid; /* Evitar quebras dentro da página */
+    }
+
     body {
       font-family: "Inter", sans-serif;
       font-size: 14px;
@@ -464,17 +478,17 @@ function imprimirConteudoModalComEstilo() {
         background-size: contain;
         background-repeat: no-repeat;
       }
+    
     </style>
     </head>
     <body>
     <div id="cabecalho"></div>
-    ${conteudoParaImpressao}
-    </body>
-    <tfoot>
+    <div id="conteudo">${conteudoParaImpressao}</div>
     <div id="rodape"></div>
-    </tfoot>
+    </body>
     </html>
   `;
+
   var iframeDocumento = iframeTemporario.contentWindow || iframeTemporario.contentDocument;
   iframeDocumento.document.open();
   iframeDocumento.document.write(conteudoIframe);
@@ -482,11 +496,15 @@ function imprimirConteudoModalComEstilo() {
 
   // Esperar um pouco para garantir que o conteúdo seja carregado no iframe
   setTimeout(function() {
-    // Chamar o método de impressão do iframe
+    // Chama o método de impressão do iframe
     iframeDocumento.focus();
     iframeDocumento.print();
-    // Remover o iframe temporário após a impressão
+    
+    // Remove o iframe temporário após a impressão
     document.body.removeChild(iframeTemporario);
   }, 1000); // Aguarda 1 segundo para garantir que o conteúdo seja carregado corretamente
 }
+
+
+
 
