@@ -160,17 +160,17 @@ body {
 }
 
 #dadosTabela th:nth-child(1) {
-  width: 20%;
+  width: 15%;
 }
 #dadosTabela th:nth-child(2) {
-  width: 5%;
+  width: 2%;
 }
 #dadosTabela th:nth-child(3) {
   width: 15%;
 }
 
 #dadosTabela th:nth-child(4) {
-  width: 14%;
+  width: 10%;
 }
 
 #dadosTabela th:nth-child(5) {
@@ -178,26 +178,35 @@ body {
 }
 
 #dadosTabela th:nth-child(6) {
-  width: 16%;
+  width: 10%;
 }
 
 #dadosTabela th:nth-child(7) {
-  width: 16%;
+  width: 10%;
 }
 
 #dadosTabela th:nth-child(8) {
-  width: 6%;
+  width: 10%;
+}
+#dadosTabela th:nth-child(9) {
+  width: 5%;
+}
+#dadosTabela th:nth-child(10) {
+  width: 10%;
+}
+#dadosTabela th:nth-child(11) {
+  width: 5%;
 }
 
 #rodape p:nth-child(1) {
-  width: 32%;
+  width: 20%;
   text-align: left;
   margin-top: 7px;
   margin-left: 5px;
 }
 
 #rodape p:nth-child(2) {
-  width: 30%;
+  width: 21%;
   text-align: right;
   margin-top: 7px;
   margin-right: 10px;
@@ -216,10 +225,29 @@ body {
 }
 
 #rodape p:nth-child(5) {
-  width: 8%;
+  width: 5%;
   text-align: center;
   margin-top: 7px;
 }
+
+#rodape p:nth-child(6) {
+  width: 10%;
+  text-align: center;
+  margin-top: 7px;
+}
+
+#rodape p:nth-child(7) {
+  width: 10%;
+  text-align: center;
+  margin-top: 7px;
+}
+
+#rodape p:nth-child(8) {
+  width: 5%;
+  text-align: center;
+  margin-top: 7px;
+}
+
 
 #filtros {
   display: flex;
