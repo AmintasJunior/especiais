@@ -25,6 +25,7 @@ function displayData(data) {
       item.codigo_plano_acao
     }</td>
       <td>${item.situacao_plano_acao}</td>
+      
       <td>${(
         parseFloat(item.valor_investimento_plano_acao) || 0
       ).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</td>

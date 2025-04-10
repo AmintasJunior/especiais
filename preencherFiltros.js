@@ -61,6 +61,6 @@ document.addEventListener("DOMContentLoaded", async (event) => {
 
   // Adiciona evento de mudança ao checkbox "Clientes-AC"
   document
-    .getElementById("Clientes-AC")
+    // .getElementById("Clientes-AC")
     .addEventListener("change", filtrarDados)
 })

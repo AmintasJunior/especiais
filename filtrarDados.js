@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async (event) => {
     "filtro_beneficiario",
     "filtro_ano",
     "filtro_parlamentar",
-    "Clientes-AC",
+    // "Clientes-AC",
   ].forEach((id) => {
     document.getElementById(id).addEventListener("change", filtrarDados)
   })
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async (event) => {
 
   // Adiciona evento de mudança ao checkbox "Clientes-AC"
   document
-    .getElementById("Clientes-AC")
+    // .getElementById("Clientes-AC")
     .addEventListener("change", filtrarDados)
 })
 
@@ -79,7 +79,7 @@ function filtrarDados() {
   const filtroParlamentarValues = obterValoresSelecionados(
     "filtro_parlamentar"
   ).map((valor) => valor.toLowerCase())
-  const filtroClientesACAtivo = document.getElementById("Clientes-AC").checked
+  // const filtroClientesACAtivo = document.getElementById("Clientes-AC").checked
 
   const dadosFiltrados = dadosCompletos.filter((item) => {
     const nomeMatch = verificarNomeMatch(item, filtroBeneficiarioValues)
@@ -88,8 +88,8 @@ function filtrarDados() {
       item,
       filtroParlamentarValues
     )
-    const estaNaListaAC = verificarAC(item, filtroClientesACAtivo)
-    return nomeMatch && anoMatch && parlamentarMatch && estaNaListaAC
+    // const estaNaListaAC = verificarAC(item, filtroClientesACAtivo)
+    return nomeMatch && anoMatch && parlamentarMatch
   })
 
   displayData(dadosFiltrados)
@@ -133,36 +133,36 @@ function verificarParlamentarMatch(item, filtroParlamentarValues) {
   )
 }
 
-function verificarAC(item, filtroClientesACAtivo) {
-  const clientesAC = [
-    "ARAUA",
-    "CANHOBA",
-    "CEDRO DE SAO JOAO",
-    "CUMBE",
-    "GARARU",
-    "GENERAL MAYNARD",
-    "GRACCHO CARDOSO",
-    "ITABAIANINHA",
-    "ITABI",
-    "MACAMBIRA",
-    "MALHADA DOS BOIS",
-    "MARUIM",
-    "MURIBECA",
-    "NOSSA SENHORA DA GLORIA",
-    "PORTO DA FOLHA",
-    "PROPRIA",
-    "RIACHUELO",
-    "SANTO AMARO DAS BROTAS",
-    "SAO FRANCISCO",
-    "TELHA",
-    "TOMAR DO GERU",
-  ]
-  return (
-    !filtroClientesACAtivo ||
-    clientesAC.includes("Todos") ||
-    clientesAC.includes(limparNome(item.nome_beneficiario_plano_acao))
-  )
-}
+// function verificarAC(item, filtroClientesACAtivo) {
+//   const clientesAC = [
+//     "ARAUA",
+//     "CANHOBA",
+//     "CEDRO DE SAO JOAO",
+//     "CUMBE",
+//     "GARARU",
+//     "GENERAL MAYNARD",
+//     "GRACCHO CARDOSO",
+//     "ITABAIANINHA",
+//     "ITABI",
+//     "MACAMBIRA",
+//     "MALHADA DOS BOIS",
+//     "MARUIM",
+//     "MURIBECA",
+//     "NOSSA SENHORA DA GLORIA",
+//     "PORTO DA FOLHA",
+//     "PROPRIA",
+//     "RIACHUELO",
+//     "SANTO AMARO DAS BROTAS",
+//     "SAO FRANCISCO",
+//     "TELHA",
+//     "TOMAR DO GERU",
+//   ]
+//   return (
+//     !filtroClientesACAtivo ||
+//     clientesAC.includes("Todos") ||
+//     clientesAC.includes(limparNome(item.nome_beneficiario_plano_acao))
+//   )
+// }
 
 // Adiciona listeners de mudança aos elementos relevantes
 document.addEventListener("DOMContentLoaded", async (event) => {
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", async (event) => {
     "filtro_beneficiario",
     "filtro_ano",
     "filtro_parlamentar",
-    "Clientes-AC",
+    // "Clientes-AC",
   ].forEach((id) => {
     document.getElementById(id).addEventListener("change", filtrarDados)
   })
@@ -183,6 +183,6 @@ document.addEventListener("DOMContentLoaded", async (event) => {
 
   // Anexa o evento de mudança ao checkbox "Clientes-AC"
   document
-    .getElementById("Clientes-AC")
+    // .getElementById("Clientes-AC")
     .addEventListener("change", filtrarDados)
 })

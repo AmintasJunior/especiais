@@ -31,8 +31,8 @@ body {
 }
 
 #cabeçalho {
-  background-color: rgb(4, 95, 143);
-  height: 70px;
+  background-color: rgba(0, 0, 0, 0.95);
+  height: 85px;
   display: flex;
   justify-content: baseline;
   align-items: center;
@@ -40,7 +40,7 @@ body {
 
 #logo-ac {
   width: 100%;
-  max-width: 50px;
+  max-width: 65px;
   margin-left: 40px;
 }
 
@@ -77,7 +77,7 @@ body {
 #linha-grossa-cabeçalho {
   width: 100%;
   height: 12px;
-  background-color: rgb(4, 95, 143);
+  background-color: rgba(0, 0, 0, 0.95);
   border-radius: 2px 2px 0 0;
   margin-top: 10px;
 }
@@ -85,7 +85,7 @@ body {
 #linha-fina-cabeçalho {
   width: 100%;
   height: 3px;
-  background: #98daf3;
+  background: #1890ff;
   margin-bottom: -5px;
 }
 
@@ -110,7 +110,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: rgb(4, 95, 143);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
   font-weight: 500;
 }
@@ -127,12 +127,12 @@ body {
 }
 
 #dadosTabela thead {
-  background-color: rgb(4, 95, 143);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
 }
 
 #dadosTabela thead th {
-  background-color: rgb(4, 95, 143);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
   font-weight: 500;
 }
@@ -151,7 +151,7 @@ body {
   color: rgb(0, 0, 0);
   font-weight: 600;
   background-color: white; /* Fundo branco */
-  border-top: 4px solid rgb(4, 95, 143);
+  border-top: 4px solid rgba(0, 0, 0, 0.95);;
   position: sticky;
   bottom: 0;
   z-index: 1;
@@ -206,20 +206,20 @@ body {
 }
 
 #rodape p:nth-child(2) {
-  width: 21%;
+  width: 20%;
   text-align: right;
   margin-top: 7px;
   margin-right: 10px;
 }
 
 #rodape p:nth-child(3) {
-  width: 16%;
+  width: 15%;
   text-align: center;
   margin-top: 7px;
 }
 
 #rodape p:nth-child(4) {
-  width: 16%;
+  width: 15%;
   text-align: center;
   margin-top: 7px;
 }
@@ -258,7 +258,7 @@ body {
 }
 
 #txt-filtro-benificiario {
-  color: rgb(4, 95, 143);
+  color: rgba(0, 0, 0, 0.95);;
   font-weight: 600;
   font-size: 15px;
 }
@@ -266,7 +266,7 @@ body {
 
 
 #txt-filtro-ano {
-  color: rgb(4, 95, 143);
+  color: rgba(0, 0, 0, 0.95);;
   font-weight: 600;
   font-size: 15px;
   margin-left: 50px;
@@ -274,7 +274,7 @@ body {
 
 
 #txt-filtro-Parlamentar {
-  color: rgb(4, 95, 143);
+  color: rgba(0, 0, 0, 0.95);;
   font-weight: 600;
   font-size: 15px;
   margin-left: 50px;
@@ -288,7 +288,7 @@ form {
 }
 
 form label {
-  color: rgb(4, 95, 143);
+  color: rgba(0, 0, 0, 0.95);;
   font-weight: 600;
   font-size: 15px;
 }
@@ -300,7 +300,7 @@ form label {
 }
 
 #butons button {
-  background-color: rgb(4, 95, 143);
+  background-color: #1890ff;;
   color: white;
   font-size: 11px;
   font-weight: 400;
@@ -336,7 +336,7 @@ form label {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-bottom: solid 4px rgb(4, 95, 143);
+  border-bottom: solid 4px rgba(0, 0, 0, 0.95);;
   padding: 5px;
 }
 
@@ -450,7 +450,7 @@ form label {
   font-size: 18px;
   color: black;
   font-weight: 500;
-  border-bottom: solid 2px rgb(4, 95, 143);
+  border-bottom: solid 2px rgba(0, 0, 0, 0.95);;
   padding: 3px;
 }
 
@@ -469,7 +469,7 @@ form label {
   font-size: 18px;
   color: black;
   font-weight: 500;
-  border-bottom: solid 2px rgb(4, 95, 143);
+  border-bottom: solid 2px rgba(0, 0, 0, 0.95);;
   padding: 3px;
 }
 
@@ -490,7 +490,7 @@ form label {
   font-size: 18px;
   color: black;
   font-weight: 500;
-  border-bottom: solid 2px rgb(4, 95, 143);
+  border-bottom: solid 2px rgba(0, 0, 0, 0.95);;
   padding: 3px;
 }
 
@@ -503,7 +503,7 @@ form label {
 }
 
 #gnd {
-  color: rgb(4, 95, 143);
+  color: rgba(0, 0, 0, 0.95);;
   font-weight: 600;
 }
 
@@ -514,7 +514,7 @@ form label {
 }
 
 #dadosTabelaAplicacaoFuncao thead th {
-  background-color: rgb(4, 95, 143);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
   font-weight: 500;
   text-align: left;
@@ -546,7 +546,7 @@ form label {
 }
 
 #dadosTabelaAplicacaoAcao thead th {
-  background-color: rgb(4, 95, 143);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
   font-weight: 500;
   text-align: left;
@@ -583,11 +583,7 @@ form label {
 }
 
 .planoAcao:hover {
-  background-color: rgb(
-    4,
-    95,
-    143
-  ); /* Muda a cor de fundo quando o mouse passa por cima */
+  background-color: #1890ff;/* Muda a cor de fundo quando o mouse passa por cima */
   color: white;
 }
 
@@ -755,12 +751,12 @@ form label {
 }
 
 .multiselect-wrapper ul li.active {
-  background-color: rgb(0, 102, 255);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
 }
 
 .multiselect-wrapper ul li:hover {
-  background-color: rgb(0, 102, 255);
+  background-color: rgba(0, 0, 0, 0.95);;
   color: white;
 }
 
